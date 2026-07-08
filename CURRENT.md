@@ -16,6 +16,15 @@ canonical `open-call` id or re-sync 409s). User set isPublic manually.
 In-design apply form ships submissions to the organizers' Google Form in
 the background (entry IDs validated via prefill URL, no test submission made).
 
+## Stage 2 (2026-07-09, late)
+
+Full application cycle: the form now dual-writes — Google Form (canonical,
+background POST) + di.iiii serverXR (`POST /api/open-calls/beyond_form/applications`).
+Review board lives at di.iiii `/admin` → Open Call tab (status chips, notes,
+filters, CSV export). di.iiii commit `e9a86d9` on dev — **not deployed yet**;
+until dev→staging deploy, the serverXR write 404s and the form silently
+falls back to Google-only (by design).
+
 ## Open
 
 - [ ] End-to-end form test: submit one entry marked "TEST", check it lands
