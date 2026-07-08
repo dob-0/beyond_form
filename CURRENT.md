@@ -8,11 +8,21 @@
 - Rebuilt it as Vite + React + R3F on user request (versions matched to di.iiii): hero letters are extruded Text3D with per-letter spin + mouse parallax, theme strokes are a 3D scatter (hidden ≤800px).
 - Single-file build (`npm run build` → `dist/index.html`, ~1.1MB all inlined); `di-space.json` entry points at it; verified via playwright screenshots at desktop + mobile.
 
+## Staging (live)
+
+https://staging.di-studio.xyz/beyond_form — space `beyond-form`, project
+`open-call` (server normalizes slugs to dashes; di-space.json must use the
+canonical `open-call` id or re-sync 409s). User set isPublic manually.
+In-design apply form ships submissions to the organizers' Google Form in
+the background (entry IDs validated via prefill URL, no test submission made).
+
 ## Open
 
-- [ ] Push to staging — needs user approval/run:
-      `LIVE_API_TOKEN=$(grep ^LIVE_API_TOKEN= ~/di.iiii/.env.local | cut -d= -f2) node scripts/sync-space.mjs --repo . --to https://staging.di-studio.xyz/serverXR`
-      (dry-run already passes; auto-mode classifier blocks the live push)
+- [ ] End-to-end form test: submit one entry marked "TEST", check it lands
+      in the Google Form responses, delete it (left to user — didn't want
+      to write into the organizers' spreadsheet unasked).
+- [ ] User reported staging "not work full" — scroll/render/images all pass
+      headless checks; needs specifics if it still reproduces.
 - [ ] Application deadline not stated in the source doc — confirm and add.
 - [ ] Mentor names / program schedule not yet available.
-- [ ] Possible next: GH Pages deploy like br_id_ge; production sync after staging review.
+- [ ] Production sync after staging review.
