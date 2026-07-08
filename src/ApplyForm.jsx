@@ -14,6 +14,20 @@ const EXPERIENCE = [
   'Թվային արվեստ',
 ]
 
+// Dual-write: di.iiii serverXR keeps its own copy for the /admin review board.
+// Inside the space viewer document.baseURI is the parent shell's URL, so the
+// same host (staging or production) serves the API; elsewhere default to prod.
+const CALL_ID = 'beyond_form'
+const serverXRUrl = () => {
+  try {
+    const u = new URL(document.baseURI)
+    if (u.hostname.endsWith('di-studio.xyz')) {
+      return `${u.origin}/serverXR/api/open-calls/${CALL_ID}/applications`
+    }
+  } catch { /* about:srcdoc without inherited base — fall through */ }
+  return `https://di-studio.xyz/serverXR/api/open-calls/${CALL_ID}/applications`
+}
+
 const Field = ({ label, hint, children, optional }) => (
   <label className="af-field">
     <span className="af-label" lang="hy">
@@ -36,36 +50,57 @@ export default function ApplyForm() {
     e.preventDefault()
     if (status === 'sending') return
     const f = e.target
+    const data = {
+      name: f.name_.value,
+      dob: f.dob.value, // yyyy-mm-dd
+      city: f.city.value,
+      phone: f.phone.value,
+      email: f.email.value,
+      about: f.about.value,
+      why: f.why.value,
+      theme: f.theme.value,
+      idea: f.idea.value,
+      experience,
+      portfolio: f.portfolio.value,
+      expect: f.expect.value,
+      days: f.days.value,
+      laptop: f.laptop.value,
+    }
+
     const body = new URLSearchParams()
-    body.append('entry.1680962767', f.name_.value)
-    const dob = f.dob.value // yyyy-mm-dd
-    if (dob) {
-      const [y, m, d] = dob.split('-')
+    body.append('entry.1680962767', data.name)
+    if (data.dob) {
+      const [y, m, d] = data.dob.split('-')
       body.append('entry.925005911_year', y)
       body.append('entry.925005911_month', String(Number(m)))
       body.append('entry.925005911_day', String(Number(d)))
     }
-    body.append('entry.1974150308', f.city.value)
-    body.append('entry.1174240905', f.phone.value)
-    body.append('entry.1982878787', f.email.value)
-    body.append('entry.733525691', f.about.value)
-    body.append('entry.1363456789', f.why.value)
-    body.append('entry.1004311440', f.theme.value)
-    body.append('entry.882121766', f.idea.value)
-    experience.forEach((x) => body.append('entry.501326964', x))
-    body.append('entry.926728418', f.portfolio.value)
-    body.append('entry.1812727997', f.expect.value)
-    body.append('entry.1290946919', f.days.value)
-    body.append('entry.219598360', f.laptop.value)
+    body.append('entry.1974150308', data.city)
+    body.append('entry.1174240905', data.phone)
+    body.append('entry.1982878787', data.email)
+    body.append('entry.733525691', data.about)
+    body.append('entry.1363456789', data.why)
+    body.append('entry.1004311440', data.theme)
+    body.append('entry.882121766', data.idea)
+    data.experience.forEach((x) => body.append('entry.501326964', x))
+    body.append('entry.926728418', data.portfolio)
+    body.append('entry.1812727997', data.expect)
+    body.append('entry.1290946919', data.days)
+    body.append('entry.219598360', data.laptop)
 
     setStatus('sending')
-    try {
-      // no-cors: Google Forms accepts the POST but the response is opaque
-      await fetch(SUBMIT_URL, { method: 'POST', mode: 'no-cors', body })
-      setStatus('done')
-    } catch {
-      setStatus('error')
-    }
+    // no-cors: Google Forms accepts the POST but the response is opaque
+    const googleWrite = fetch(SUBMIT_URL, { method: 'POST', mode: 'no-cors', body })
+    // best-effort copy into di.iiii — review board reads this; Google stays canonical
+    const serverWrite = fetch(serverXRUrl(), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    }).then((r) => { if (!r.ok) throw new Error(`serverXR ${r.status}`) })
+
+    const [google, server] = await Promise.allSettled([googleWrite, serverWrite])
+    if (server.status === 'rejected') console.warn('serverXR copy failed:', server.reason)
+    setStatus(google.status === 'fulfilled' || server.status === 'fulfilled' ? 'done' : 'error')
   }
 
   if (status === 'done') {
