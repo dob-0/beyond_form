@@ -4,9 +4,9 @@
   "projectId": "open_call",
   "label": "Beyond Form",
   "mode": "code",
-  "entry": "index.html",
+  "entry": "dist/index.html",
   "include": [],
-  "assets": ["assets/*.png"],
+  "assets": [],
   "publish": true,
   "live": "https://di-studio.xyz/serverXR"
 }

@@ -13,7 +13,8 @@ G.Urban Platform.
 
 | Path | Role |
 |------|------|
-| `index.html` | Self-contained landing page (no build step, no dependencies) |
+| `index.html` + `src/` | Vite + React + React Three Fiber app (hero: 3D tumbling letters; theme: 3D stroke field) |
+| `dist/index.html` | Single-file production build (everything inlined) — the artifact sync-space uploads |
 | `assets/` | Web images (partner logo strip, Gyumri Art Week houses mark) |
 | `references/` | Source material from the shared Drive folder: open call text, logos.pdf, design reference photos |
 | `docs/PROJECT.md` | Project brief, design direction, ecosystem notes |
@@ -30,8 +31,11 @@ node scripts/sync-space.mjs --repo . --dry-run   # preview
 node scripts/sync-space.mjs --repo .             # create/update space "beyond_form"
 ```
 
-## Preview locally
+## Develop / preview locally
 
 ```bash
-python3 -m http.server 8090   # then open http://localhost:8090
+npm install
+npm run dev       # Vite dev server
+npm run build     # single-file build → dist/index.html
+npm run preview   # serve the build
 ```

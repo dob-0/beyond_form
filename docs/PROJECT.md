@@ -49,9 +49,10 @@ The photos in `references/photos/` are **style references**, not content:
 - scattered short black strokes as texture (`photo_2026-07-08_23-28-17.jpg`)
 - huge text overlapping organic black shapes (`photo_2026-07-09_00-07-10.jpg`)
 
-`index.html` implements this: black hero with tumbling BEYOND FORM letters,
-AM/EN split about section, giant "City and Time" theme block with stroke
-scatter, numbered detail panels, full-width apply CTA.
+The React app implements this: black hero with 3D extruded tumbling
+BEYOND FORM letters (R3F, `src/HeroScene.jsx`), AM/EN split about section,
+giant "City and Time" theme block with a 3D stroke scatter
+(`src/StrokeField.jsx`), numbered detail panels, full-width apply CTA.
 
 ## Ecosystem position
 
