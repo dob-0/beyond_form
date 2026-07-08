@@ -154,22 +154,105 @@ img { max-width: 100%; display: block; }
   background: var(--ink);
   color: var(--paper);
   padding: calc(var(--pad) * 2) var(--pad);
-  text-align: center;
 }
-.apply p { font-size: clamp(.95rem, 1.4vw, 1.1rem); margin-bottom: 2.5rem; }
-.apply a.btn {
-  display: inline-block;
-  font-size: clamp(2.2rem, 7vw, 6rem);
+.apply > p { font-size: clamp(.95rem, 1.4vw, 1.1rem); margin-bottom: 2.5rem; text-align: center; }
+.apply .apply-title {
+  font-size: clamp(2.6rem, 8vw, 7rem);
   font-weight: 700;
   letter-spacing: -.03em;
+  line-height: .95;
   text-transform: uppercase;
-  text-decoration: none;
-  border: 3px solid var(--paper);
-  padding: .3em .7em;
+  margin-bottom: 3rem;
+  text-align: center;
+}
+.apply .dates { margin-top: 3rem; font-size: .85rem; text-transform: uppercase; letter-spacing: .08em; text-align: center; }
+
+/* ---------- application form ---------- */
+.af { max-width: 62rem; margin: 0 auto; }
+.af-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.6rem 2.5rem;
+  margin-bottom: 1.6rem;
+}
+.af-field { display: block; margin-bottom: 1.6rem; }
+.af-grid .af-field { margin-bottom: 0; }
+.af-label {
+  display: block;
+  font-size: .95rem;
+  font-weight: 700;
+  letter-spacing: .02em;
+  margin-bottom: .2rem;
+}
+.af-label em { font-style: normal; font-weight: 400; opacity: .6; font-size: .8em; }
+.af-hint {
+  display: block;
+  font-size: .72rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  opacity: .55;
+  margin-bottom: .55rem;
+}
+.af input[type="text"], .af input[type="tel"], .af input[type="email"],
+.af input[type="date"], .af textarea {
+  width: 100%;
+  background: transparent;
+  border: 1px solid var(--paper);
+  border-radius: 0;
+  color: var(--paper);
+  font: inherit;
+  padding: .65rem .8rem;
+  outline: none;
+}
+.af input:focus, .af textarea:focus { background: rgba(244, 242, 238, .07); }
+.af textarea { resize: vertical; }
+.af input[type="date"] { color-scheme: dark; }
+.af-choices { border: 0; margin-bottom: 1.6rem; min-width: 0; }
+.af-choices legend { padding: 0; margin-bottom: .2rem; }
+.af-pills { display: flex; flex-wrap: wrap; gap: .6rem; }
+.af-pills button {
+  background: transparent;
+  border: 1px solid var(--paper);
+  color: var(--paper);
+  font: inherit;
+  font-size: .9rem;
+  padding: .5rem 1rem;
+  cursor: pointer;
   transition: background .15s, color .15s;
 }
-.apply a.btn:hover { background: var(--paper); color: var(--ink); }
-.apply .dates { margin-top: 2rem; font-size: .85rem; text-transform: uppercase; letter-spacing: .08em; }
+.af-pills button.on, .af-pills button:hover { background: var(--paper); color: var(--ink); }
+.af-radios { display: flex; flex-direction: column; gap: .5rem; }
+.af-radios label { display: flex; align-items: baseline; gap: .6rem; cursor: pointer; font-size: .95rem; }
+.af-radios input { accent-color: var(--paper); }
+.af-error { margin-bottom: 1.5rem; font-size: .95rem; }
+.af-error a { text-decoration: underline; }
+.af-submit {
+  display: block;
+  width: 100%;
+  background: transparent;
+  color: var(--paper);
+  font: inherit;
+  font-size: clamp(1.6rem, 4vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -.02em;
+  text-transform: uppercase;
+  border: 3px solid var(--paper);
+  padding: .4em .7em;
+  cursor: pointer;
+  transition: background .15s, color .15s;
+}
+.af-submit:hover:not(:disabled) { background: var(--paper); color: var(--ink); }
+.af-submit:disabled { opacity: .5; cursor: wait; }
+.af-fallback { margin-top: 1.2rem; text-align: center; font-size: .8rem; text-transform: uppercase; letter-spacing: .06em; }
+.af-fallback a { opacity: .65; }
+.af-done { text-align: center; padding: 3rem 0; }
+.af-done-big {
+  font-size: clamp(2rem, 6vw, 5rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -.02em;
+  margin-bottom: 1rem;
+}
 
 /* ---------- footer ---------- */
 footer { padding: var(--pad); }
@@ -200,6 +283,7 @@ footer .fine {
 @media (max-width: 800px) {
   .about, .theme .theme-text { grid-template-columns: 1fr; }
   .stroke-canvas-wrap { display: none; }
+  .af-grid { grid-template-columns: 1fr; }
   .facts { grid-template-columns: 1fr; }
   .facts article { border-right: 0; border-bottom: 1px solid var(--ink); min-height: 0; }
   .facts article:last-child { border-bottom: 0; }

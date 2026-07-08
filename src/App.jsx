@@ -1,11 +1,9 @@
 import React from 'react'
 import HeroScene from './HeroScene.jsx'
 import StrokeField from './StrokeField.jsx'
+import ApplyForm from './ApplyForm.jsx'
 import housesMark from '../assets/gaw-houses.png'
 import partnerLogos from '../assets/partner-logos.png'
-
-const FORM_URL =
-  'https://docs.google.com/forms/d/e/1FAIpQLScV1g-mu1jVS96-NgacscmwMExVktXWw6QfEtw2YeoBp2IoUA/viewform'
 
 export default function App() {
   return (
@@ -181,9 +179,8 @@ export default function App() {
             interpretations of the theme.
           </span>
         </p>
-        <a className="btn" href={FORM_URL} target="_blank" rel="noopener noreferrer">
-          Դիմել — Apply
-        </a>
+        <h2 className="apply-title">Դիմել — Apply</h2>
+        <ApplyForm />
         <p className="dates">Beyond Form · 03.08 — 05.08 · Gyumri</p>
       </section>
 
