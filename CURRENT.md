@@ -2,36 +2,16 @@
 
 ## Last session (2026-07-09)
 
-- Created the project from the Drive folder `open_call`: repo scaffolded, pushed to `dob-0/beyond_form` (public, HTTPS remote).
-- Mirrored all source material into `references/` — verbatim AM/EN open-call text, logos.pdf, 5 B/W design reference photos — and extracted web assets (partner logo strip, GAW houses mark).
-- Built the landing page: B/W brutalist per the references — tumbling hero letters, AM/EN split about, "City and Time" theme block, 01/02/03 panels, apply CTA → Google Form, partner footer.
-- Rebuilt it as Vite + React + R3F on user request (versions matched to di.iiii): hero letters are extruded Text3D with per-letter spin + mouse parallax, theme strokes are a 3D scatter (hidden ≤800px).
-- Single-file build (`npm run build` → `dist/index.html`, ~1.1MB all inlined); `di-space.json` entry points at it; verified via playwright screenshots at desktop + mobile.
-
-## Staging (live)
-
-https://staging.di-studio.xyz/beyond_form — space `beyond-form`, project
-`open-call` (server normalizes slugs to dashes; di-space.json must use the
-canonical `open-call` id or re-sync 409s). User set isPublic manually.
-In-design apply form ships submissions to the organizers' Google Form in
-the background (entry IDs validated via prefill URL, no test submission made).
-
-## Stage 2 (2026-07-09, late)
-
-Full application cycle: the form now dual-writes — Google Form (canonical,
-background POST) + di.iiii serverXR (`POST /api/open-calls/beyond_form/applications`).
-Review board lives at di.iiii `/admin` → Open Call tab (status chips, notes,
-filters, CSV export). di.iiii commit `e9a86d9` on dev — **not deployed yet**;
-until dev→staging deploy, the serverXR write 404s and the form silently
-falls back to Google-only (by design).
+- Created the whole project: repo `dob-0/beyond_form`, B/W brutalist landing from the Drive references, rebuilt as Vite + React + R3F (3D tumbling hero letters, stroke field), single-file build synced as di.iiii space — live at https://staging.di-studio.xyz/beyond_form (user set isPublic).
+- Built the in-design application form: AM labels verbatim + EN hints; Google Form entry IDs extracted and validated via prefill.
+- Fixed the "blank page after clicking nav" bug: srcdoc iframes inherit the shell's base URL, so `#anchor` clicks navigated the sandboxed iframe to the shell — fragment clicks now intercepted here AND in di.iiii's preview bootstrap (platform fix `d377dda`, known-fixes entry + regression test).
+- Stage 2 shipped in di.iiii (`e9a86d9`, deployed to staging): `open_call_applications` table + public rate-limited POST `/api/open-calls/:callId/applications` (permissive CORS for Origin:null iframes) + admin GET/PATCH; Ops Graph → **Open Call** review board (status chips, notes, filters, CSV) in the preferences design system; wiki article; store + contract tests.
+- Form now dual-writes: Google Form (canonical) + serverXR copy for the board. **User tested the full pipeline end-to-end on staging — confirmed working.**
+- A declined probe row ("TEST — deploy probe") sits in the staging board as deploy evidence.
 
 ## Open
 
-- [ ] End-to-end form test: submit one entry marked "TEST", check it lands
-      in the Google Form responses, delete it (left to user — didn't want
-      to write into the organizers' spreadsheet unasked).
-- [ ] User reported staging "not work full" — scroll/render/images all pass
-      headless checks; needs specifics if it still reproduces.
-- [ ] Application deadline not stated in the source doc — confirm and add.
-- [ ] Mentor names / program schedule not yet available.
-- [ ] Production sync after staging review.
+- [ ] Promote di.iiii `dev → main` to get the cycle on production (per di.iiii CURRENT: one manual OAuth click-through on staging first).
+- [ ] Stage 1 content still missing from organizers: application deadline, mentor names, day-by-day program — add sections when provided.
+- [ ] Stage 3 (optional): applicant confirmation/decision emails — needs an SMTP/provider decision; serverXR has no mailer.
+- [ ] Post-workshop: created works become di.iiii spaces linked from this page (exhibition gallery).
