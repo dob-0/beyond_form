@@ -5,6 +5,18 @@ import ApplyForm from './ApplyForm.jsx'
 import housesMark from '../assets/gaw-houses.png'
 import partnerLogos from '../assets/partner-logos.png'
 
+// Inside the di.iiii space viewer the page runs in a sandboxed srcdoc iframe
+// whose base URL is the parent shell's — a plain href="#id" click there
+// navigates the iframe to the shell URL (which cannot run sandboxed) instead
+// of scrolling. Intercept fragment links and scroll manually.
+const onFragmentClick = (e) => {
+  const anchor = e.target.closest?.('a[href^="#"]')
+  if (!anchor) return
+  e.preventDefault()
+  const id = anchor.getAttribute('href').slice(1)
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+}
+
 export default function App() {
   return (
     <>
@@ -31,7 +43,7 @@ export default function App() {
           <div className="dates">03.08 — 05.08</div>
         </div>
 
-        <nav className="hero-nav">
+        <nav className="hero-nav" onClick={onFragmentClick}>
           <a href="#about">Աշխատարան / Workshop</a>
           <a href="#theme">Թեմա / Theme</a>
           <a href="#facts">Մանրամասներ / Details</a>
