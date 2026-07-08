@@ -1,0 +1,12 @@
+{
+  "$schema": "https://di-studio.xyz/schemas/di-space.schema.json",
+  "spaceId": "beyond_form",
+  "projectId": "open_call",
+  "label": "Beyond Form",
+  "mode": "code",
+  "entry": "index.html",
+  "include": [],
+  "assets": ["assets/*.png"],
+  "publish": true,
+  "live": "https://di-studio.xyz/serverXR"
+}
