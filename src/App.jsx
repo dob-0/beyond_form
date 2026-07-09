@@ -5,6 +5,8 @@ import ApplyForm from './ApplyForm.jsx'
 import HousesModel from './HousesModel.jsx'
 import housesMark from '../assets/gaw-houses.png'
 import partnerLogos from '../assets/partner-logos.png'
+import academyLogo from '../assets/academy-gyumri-branch-hy.png'
+import gawLogo from '../assets/gyumri-art-week-logo.png'
 
 // Inside the di.iiii space viewer the page runs in a sandboxed srcdoc iframe
 // whose base URL is the parent shell's — a plain href="#id" click there
@@ -59,13 +61,19 @@ const useScrollProgress = () => {
 const scrollToApply = () =>
   document.getElementById('apply')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
 
-function Marquee({ dark }) {
+const MARQUEE_BASE_TEXT = 'Դիմել ✳ Apply now ✳ Beyond Form ✳ 03.08 — 05.08 ✳ Gyumri ✳ '
+const MARQUEE_BASE_DURATION = 22 // seconds, tuned for MARQUEE_BASE_TEXT's length
+
+function Marquee({ dark, text }) {
+  const content = text || MARQUEE_BASE_TEXT
   const items = Array.from({ length: 6 }, (_, i) => (
-    <span key={i}>Դիմել ✳ Apply now ✳ Beyond Form ✳ 03.08 — 05.08 ✳ Gyumri ✳ </span>
+    <span key={i}>{content}</span>
   ))
+  // keep scroll speed (px/s) constant regardless of text length
+  const duration = MARQUEE_BASE_DURATION * (content.length / MARQUEE_BASE_TEXT.length)
   return (
     <a className={`marquee${dark ? ' dark' : ''}`} href="#apply" onClick={onFragmentClick} aria-label="Apply now">
-      <div className="marquee-track" aria-hidden="true">
+      <div className="marquee-track" style={{ animationDuration: `${duration}s` }} aria-hidden="true">
         <div className="marquee-chunk">{items}</div>
         <div className="marquee-chunk">{items}</div>
       </div>
@@ -128,7 +136,7 @@ export default function App() {
           <div className="right">
             Gyumri Art Week
             <br />
-            03.08 — 05.08
+            07.08 — 20.08
           </div>
         </div>
 
@@ -146,7 +154,6 @@ export default function App() {
           <a href="#about">Աշխատարան / Workshop</a>
           <a href="#theme">Թեմա / Theme</a>
           <a href="#facts">Մանրամասներ / Details</a>
-          <a href="#apply">Դիմել / Apply</a>
         </nav>
       </header>
 
@@ -272,48 +279,47 @@ export default function App() {
           <div className="num">03</div>
           <h3>Որտեղ / Where</h3>
           <p lang="hy">
-            Գյումրի — կենդանի հետազոտական միջավայր, Gyumri Art Week-ի
-            շրջանակում։
+            Հայաստանի Գեղարվեստի Ակադեմիայի Գյումրու մասնաճյուղ
           </p>
           <p lang="en">
-            Gyumri — a living research environment, within the framework of
-            Gyumri Art Week.
+            Academy of Fine Arts, Gyumri, Armenia
           </p>
         </article>
       </section>
 
-      <Marquee dark />
+      <div id="apply">
+      <Marquee dark text="Deadline 25.07 ✳ " />
 
-      <section className="apply" id="apply">
+      <section className="apply">
         <p lang="hy">
-          Ստեղծվող աշխատանքները կարող են լինել թեմայի անձնական, հետազոտական կամ
-          փորձարարական մեկնաբանություններ։
+          Աշխատարանների արդյունքում ստեղծված աշխատանքները ցուցադրվելու են
+          հանրային տարածքներում՝ Gyumri Art Week-ի շրջանակում։
           <br />
           <span lang="en">
-            The works created can be personal, research, or experimental
-            interpretations of the theme.
+            The works created as a result of the workshops will be exhibited
+            in public spaces as part of Gyumri Art Week.
           </span>
         </p>
         <h2 className="apply-title">Դիմել — Apply</h2>
         <ApplyForm />
         <p className="dates">Beyond Form · 03.08 — 05.08 · Gyumri</p>
       </section>
+      </div>
 
       <footer>
         <div className="houses-3d">
           <HousesModel fallback={<img className="houses" src={housesMark} alt="Gyumri Art Week" />} />
-        </div>
-        <div className="orgs">
-          <span>Gyumri Art Week</span>
-          <span lang="hy">Ժամանակակից արվեստի ինստիտուտ</span>
-          <span lang="hy">Գյումրու Գեղարվեստի ակադեմիա</span>
-          <span>G.Urban Platform</span>
         </div>
         <div className="partners">
           <img
             src={partnerLogos}
             alt="Institute for Contemporary Art Yerevan · ArtNexus / The Swedish Arts Grants Committee · Sverige"
           />
+          <img
+            src={academyLogo}
+            alt="Հայաստանի պետական գեղարվեստի ակադեմիա — Գյումրու մասնաճյուղ"
+          />
+          <img src={gawLogo} alt="Gyumri Art Week International" />
         </div>
         <div className="fine">
           <span>Beyond Form — Open Call</span>

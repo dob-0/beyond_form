@@ -34,6 +34,16 @@ Summary:
 2. ArtNexus / Konstnärsnämnden — The Swedish Arts Grants Committee
 3. Sverige (Sweden)
 
+Also shown separately in the footer, sized to match the other partner
+logos:
+
+- State Academy of Fine Arts of Armenia — Gyumri Branch
+  (`assets/academy-gyumri-branch-hy.png`, trimmed/transparent from
+  `references/logos/academy-gyumri-full-hy.png`)
+- Gyumri Art Week International (`assets/gyumri-art-week-logo.png`,
+  trimmed/transparent from `references/logos/gyumri-art-week-source-hires.png`,
+  rasterized from the user-provided `logo Gyumri Art Week.pdf`)
+
 Footer also credits: Gyumri Art Week, Gyumri Academy of Fine Arts,
 G.Urban Platform. The four-houses stamp mark (`assets/gaw-houses.png`) is the
 Gyumri Art Week identity mark.

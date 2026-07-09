@@ -58,11 +58,9 @@ export default function ApplyForm() {
       email: f.email.value,
       about: f.about.value,
       why: f.why.value,
-      theme: f.theme.value,
       idea: f.idea.value,
       experience,
       portfolio: f.portfolio.value,
-      expect: f.expect.value,
       days: f.days.value,
       laptop: f.laptop.value,
     }
@@ -80,11 +78,9 @@ export default function ApplyForm() {
     body.append('entry.1982878787', data.email)
     body.append('entry.733525691', data.about)
     body.append('entry.1363456789', data.why)
-    body.append('entry.1004311440', data.theme)
     body.append('entry.882121766', data.idea)
     data.experience.forEach((x) => body.append('entry.501326964', x))
     body.append('entry.926728418', data.portfolio)
-    body.append('entry.1812727997', data.expect)
     body.append('entry.1290946919', data.days)
     body.append('entry.219598360', data.laptop)
 
@@ -140,16 +136,13 @@ export default function ApplyForm() {
       <Field label="Ինչո՞ւ եք ցանկանում մասնակցել Beyond Form աշխատարանին։" hint="Why do you want to take part in Beyond Form?">
         <textarea name="why" rows="4" required />
       </Field>
-      <Field label="Ի՞նչն է ձեզ հետաքրքրում «Քաղաքը և ժամանակը» թեմայում։" hint="What interests you in the theme City and Time?">
-        <textarea name="theme" rows="4" required />
-      </Field>
       <Field label="Եթե արդեն ունեք գաղափար, համառոտ ներկայացրեք այն։" hint="If you already have an idea, describe it briefly" optional>
         <textarea name="idea" rows="3" />
       </Field>
 
       <fieldset className="af-choices">
         <legend>
-          <span className="af-label" lang="hy">Ունե՞ք փորձ հետևյալ ուղղություններից որևէ մեկում։ <em> · ըստ ցանկության</em></span>
+          <span className="af-label" lang="hy">Ունե՞ք փորձ հետևյալ ուղղություններից որևէ մեկում։</span>
           <span className="af-hint" lang="en">Any experience in these areas?</span>
         </legend>
         <div className="af-pills">
@@ -164,15 +157,20 @@ export default function ApplyForm() {
             </button>
           ))}
         </div>
+        <input
+          type="text"
+          required
+          value={experience.length ? 'ok' : ''}
+          onChange={() => {}}
+          aria-hidden="true"
+          tabIndex={-1}
+          className="af-choices-required"
+        />
       </fieldset>
 
-      <Field label="Կցեք ձեր պորտֆոլիոն կամ 3–5 աշխատանքների հղում։" hint="Portfolio or 3–5 links to your works" optional>
-        <input name="portfolio" type="text" inputMode="url" />
+      <Field label="Կցեք ձեր պորտֆոլիոն կամ 3–5 աշխատանքների հղում։" hint="Portfolio or link to 3–5 works">
+        <input name="portfolio" type="text" inputMode="url" required />
       </Field>
-      <Field label="Ի՞նչ եք ակնկալում ստանալ այս աշխատարանից։" hint="What do you expect from this workshop?">
-        <textarea name="expect" rows="3" required />
-      </Field>
-
       <div className="af-grid">
         <fieldset className="af-choices">
           <legend>
