@@ -1,12 +1,13 @@
 import React, { Component, Suspense, useMemo, useRef } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { useGLTF, Center } from '@react-three/drei'
+import { useGLTF } from '@react-three/drei'
 import * as THREE from 'three'
 
-// Literal basename matters: scripts/sync-space.mjs uploads public/gaw-houses.glb
-// as a space asset and rewrites this exact string to the asset URL in the
-// built HTML. In dev, Vite serves public/ at the root so the relative path works.
-const MODEL_URL = 'gaw-houses.glb'
+// Literal basename matters: scripts/sync-space.mjs uploads the file from
+// public/ as a space asset and rewrites this exact string to the asset URL in
+// the built HTML. In dev, Vite serves public/ at the root. Same asset as the
+// theme section's assembly scene — useGLTF caches it, so it downloads once.
+const MODEL_URL = 'gaw-houses-split.glb'
 
 const REDUCE_MOTION =
   typeof window !== 'undefined' &&
@@ -15,9 +16,13 @@ const REDUCE_MOTION =
 function Houses() {
   const group = useRef()
   const { scene } = useGLTF(MODEL_URL)
-  const scale = useMemo(() => {
-    const size = new THREE.Box3().setFromObject(scene).getSize(new THREE.Vector3())
-    return 6 / (size.length() || 1)
+  const { cloned, scale } = useMemo(() => {
+    const cloned = scene.clone(true)
+    const box = new THREE.Box3().setFromObject(cloned)
+    const center = box.getCenter(new THREE.Vector3())
+    cloned.position.sub(center)
+    const size = box.getSize(new THREE.Vector3())
+    return { cloned, scale: 6 / (size.length() || 1) }
   }, [scene])
 
   // the scan's house facades point roughly (-0.87, 0, 0.48) — yaw them to camera
@@ -31,9 +36,9 @@ function Houses() {
 
   return (
     <group ref={group} rotation={[0.08, BASE_YAW, 0]} position={[-0.4, 0.25, 0]}>
-      <Center>
-        <primitive object={scene} scale={scale} />
-      </Center>
+      <group scale={scale}>
+        <primitive object={cloned} />
+      </group>
     </group>
   )
 }

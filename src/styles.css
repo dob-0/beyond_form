@@ -218,12 +218,12 @@ img { max-width: 100%; display: block; }
   padding: calc(var(--pad) * 2) var(--pad);
   overflow: hidden;
 }
-.stroke-canvas-wrap {
+.city-canvas-wrap {
   position: absolute;
   inset: 0;
   pointer-events: none;
 }
-.stroke-canvas-wrap canvas { display: block; }
+.city-canvas-wrap canvas { display: block; }
 .theme h2 {
   position: relative;
   font-size: clamp(2.6rem, 9vw, 8.5rem);
@@ -387,7 +387,7 @@ footer .fine {
 
 @media (max-width: 800px) {
   .about, .theme .theme-text { grid-template-columns: 1fr; }
-  .stroke-canvas-wrap { display: none; }
+  .city-canvas-wrap { display: none; }
   .af-grid { grid-template-columns: 1fr; }
   .facts { grid-template-columns: 1fr; }
   .facts article { border-right: 0; border-bottom: 1px solid var(--ink); min-height: 0; }

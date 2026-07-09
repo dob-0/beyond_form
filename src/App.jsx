@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import HeroScene from './HeroScene.jsx'
-import StrokeField from './StrokeField.jsx'
+import ThemeCity from './ThemeCity.jsx'
 import ApplyForm from './ApplyForm.jsx'
 import HousesModel from './HousesModel.jsx'
 import housesMark from '../assets/gaw-houses.png'
@@ -197,8 +197,8 @@ export default function App() {
       <Marquee />
 
       <section className="theme" id="theme">
-        <div className="stroke-canvas-wrap" aria-hidden="true">
-          <StrokeField />
+        <div className="city-canvas-wrap" aria-hidden="true">
+          <ThemeCity sectionId="theme" />
         </div>
         <h2 data-reveal>
           City and Time{' '}
