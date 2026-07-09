@@ -119,6 +119,7 @@ export default function App() {
 
         <div className="hero-meta">
           <div>
+            <img className="hero-mark" src={housesMark} alt="" aria-hidden="true" />
             Beyond Form
             <br />
             Բաց կանչ — Open call

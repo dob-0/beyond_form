@@ -46,6 +46,13 @@ img { max-width: 100%; display: block; }
   gap: 1rem;
 }
 .hero-meta .right { text-align: right; }
+.hero-mark {
+  display: block;
+  height: clamp(2rem, 4vw, 3.2rem);
+  width: auto;
+  margin-bottom: .9rem;
+  filter: invert(1);
+}
 .hero-title {
   position: relative;
   z-index: 2;
