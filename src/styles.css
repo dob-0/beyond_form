@@ -359,6 +359,9 @@ img { max-width: 100%; display: block; }
 /* ---------- footer ---------- */
 footer { padding: var(--pad); }
 footer .houses { width: clamp(160px, 22vw, 280px); margin-bottom: 2rem; }
+footer .houses-3d { height: clamp(240px, 32vw, 420px); margin-bottom: 1.5rem; }
+footer .houses-3d canvas { display: block; }
+footer .houses-3d .houses { margin-top: 4rem; }
 footer .orgs {
   display: flex;
   flex-wrap: wrap;

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import HeroScene from './HeroScene.jsx'
 import StrokeField from './StrokeField.jsx'
 import ApplyForm from './ApplyForm.jsx'
+import HousesModel from './HousesModel.jsx'
 import housesMark from '../assets/gaw-houses.png'
 import partnerLogos from '../assets/partner-logos.png'
 
@@ -299,7 +300,9 @@ export default function App() {
       </section>
 
       <footer>
-        <img className="houses" src={housesMark} alt="Gyumri Art Week" />
+        <div className="houses-3d">
+          <HousesModel fallback={<img className="houses" src={housesMark} alt="Gyumri Art Week" />} />
+        </div>
         <div className="orgs">
           <span>Gyumri Art Week</span>
           <span lang="hy">Ժամանակակից արվեստի ինստիտուտ</span>
