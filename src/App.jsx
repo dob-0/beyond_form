@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import HeroScene from './HeroScene.jsx'
 import StrokeField from './StrokeField.jsx'
 import ApplyForm from './ApplyForm.jsx'
@@ -17,9 +17,101 @@ const onFragmentClick = (e) => {
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
 
+const REDUCE_MOTION =
+  typeof window !== 'undefined' &&
+  window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+// sections marked data-reveal slide in as they enter the viewport
+const useScrollReveal = () => {
+  useEffect(() => {
+    if (REDUCE_MOTION || typeof IntersectionObserver === 'undefined') return
+    document.documentElement.classList.add('reveal-ready')
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed')
+          observer.unobserve(entry.target)
+        }
+      }),
+      { threshold: 0.12 }
+    )
+    document.querySelectorAll('[data-reveal]').forEach((el) => observer.observe(el))
+    return () => observer.disconnect()
+  }, [])
+}
+
+const useScrollProgress = () => {
+  const [progress, setProgress] = useState(0)
+  useEffect(() => {
+    const onScroll = () => {
+      const doc = document.documentElement
+      const max = doc.scrollHeight - window.innerHeight
+      setProgress(max > 0 ? window.scrollY / max : 0)
+    }
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+  return progress
+}
+
+const scrollToApply = () =>
+  document.getElementById('apply')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+
+function Marquee({ dark }) {
+  const items = Array.from({ length: 6 }, (_, i) => (
+    <span key={i}>Դիմել ✳ Apply now ✳ Beyond Form ✳ 03.08 — 05.08 ✳ Gyumri ✳ </span>
+  ))
+  return (
+    <a className={`marquee${dark ? ' dark' : ''}`} href="#apply" onClick={onFragmentClick} aria-label="Apply now">
+      <div className="marquee-track" aria-hidden="true">
+        <div className="marquee-chunk">{items}</div>
+        <div className="marquee-chunk">{items}</div>
+      </div>
+    </a>
+  )
+}
+
+function FloatingApply() {
+  const [shown, setShown] = useState(false)
+  useEffect(() => {
+    if (typeof IntersectionObserver === 'undefined') return
+    const hero = document.querySelector('.hero')
+    const apply = document.getElementById('apply')
+    let heroVisible = true
+    let applyVisible = false
+    const update = () => setShown(!heroVisible && !applyVisible)
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.target === hero) heroVisible = entry.isIntersecting
+        if (entry.target === apply) applyVisible = entry.isIntersecting
+      })
+      update()
+    }, { threshold: 0.05 })
+    if (hero) observer.observe(hero)
+    if (apply) observer.observe(apply)
+    return () => observer.disconnect()
+  }, [])
+  return (
+    <button
+      type="button"
+      className={`floating-apply${shown ? ' shown' : ''}`}
+      onClick={scrollToApply}
+      tabIndex={shown ? 0 : -1}
+      aria-hidden={!shown}
+    >
+      Դիմել — Apply
+    </button>
+  )
+}
+
 export default function App() {
+  useScrollReveal()
+  const progress = useScrollProgress()
   return (
     <>
+      <div className="scroll-progress" style={{ transform: `scaleX(${progress})` }} aria-hidden="true" />
+      <FloatingApply />
       <header className="hero">
         <div className="hero-canvas-wrap" aria-hidden="true">
           <HeroScene />
@@ -40,7 +132,12 @@ export default function App() {
 
         <div className="hero-title">
           <h1>Beyond Form</h1>
-          <div className="dates">03.08 — 05.08</div>
+          <div className="hero-title-side">
+            <div className="dates">03.08 — 05.08</div>
+            <a className="hero-apply" href="#apply" onClick={onFragmentClick}>
+              Դիմել — Apply ↓
+            </a>
+          </div>
         </div>
 
         <nav className="hero-nav" onClick={onFragmentClick}>
@@ -52,7 +149,7 @@ export default function App() {
       </header>
 
       <section className="about" id="about">
-        <div className="am" lang="hy">
+        <div className="am" lang="hy" data-reveal>
           <p className="tag">Բաց կանչ</p>
           <p className="lead">
             Beyond Form-ը եռօրյա ստեղծագործական աշխատարան է, որն իրականացվում է
@@ -73,7 +170,7 @@ export default function App() {
             արվեստի գործեր՝ հիմնված փառատոնի այս տարվա թեմայի վրա։
           </p>
         </div>
-        <div className="en" lang="en">
+        <div className="en" lang="en" data-reveal>
           <p className="tag">Open call</p>
           <p className="lead">
             Beyond Form is a three-day creative workshop, implemented within
@@ -95,18 +192,20 @@ export default function App() {
         </div>
       </section>
 
+      <Marquee />
+
       <section className="theme" id="theme">
         <div className="stroke-canvas-wrap" aria-hidden="true">
           <StrokeField />
         </div>
-        <h2>
+        <h2 data-reveal>
           City and Time{' '}
           <span className="hy" lang="hy">
             Քաղաքը և ժամանակը
           </span>
         </h2>
         <div className="theme-text">
-          <div lang="hy">
+          <div lang="hy" data-reveal>
             <p>
               Քաղաքը, որպես ժամանակների հատման, համակեցության և փոխակերպման
               տարածք։
@@ -122,7 +221,7 @@ export default function App() {
               ժամանակի և քաղաքի փոխհարաբերության բազմազան դրսևորումները։
             </p>
           </div>
-          <div lang="en">
+          <div lang="en" data-reveal>
             <p>
               The city as a space of intersection, coexistence and
               transformation of times.
@@ -143,7 +242,7 @@ export default function App() {
       </section>
 
       <section className="facts" id="facts">
-        <article>
+        <article data-reveal>
           <div className="num">01</div>
           <h3>Ով / Who</h3>
           <p lang="hy">
@@ -155,7 +254,7 @@ export default function App() {
             and new media.
           </p>
         </article>
-        <article>
+        <article data-reveal>
           <div className="num">02</div>
           <h3>Ինչ / What</h3>
           <p lang="hy">
@@ -167,7 +266,7 @@ export default function App() {
             the support of mentors.
           </p>
         </article>
-        <article>
+        <article data-reveal>
           <div className="num">03</div>
           <h3>Որտեղ / Where</h3>
           <p lang="hy">
@@ -180,6 +279,8 @@ export default function App() {
           </p>
         </article>
       </section>
+
+      <Marquee dark />
 
       <section className="apply" id="apply">
         <p lang="hy">

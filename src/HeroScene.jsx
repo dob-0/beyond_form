@@ -28,12 +28,31 @@ function TumblingLetter({ char, f, z, rot, axis, speed }) {
     return { x: x / len, y: y / len, z: zz / len }
   }, [axis])
 
-  useFrame((_, delta) => {
+  useFrame(({ pointer, viewport: vp }, delta) => {
     if (REDUCE_MOTION || !group.current) return
     const r = group.current.rotation
     r.x += ax.x * speed * delta
     r.y += ax.y * speed * delta
     r.z += ax.z * speed * delta
+    // letters shy away from the cursor
+    const baseX = f[0] * vp.width
+    const baseY = f[1] * vp.height
+    const px = (pointer.x * vp.width) / 2
+    const py = (pointer.y * vp.height) / 2
+    const dx = baseX - px
+    const dy = baseY - py
+    const dist = Math.hypot(dx, dy)
+    const radius = vp.width * 0.2
+    let tx = baseX
+    let ty = baseY
+    if (dist < radius && dist > 0.001) {
+      const push = (1 - dist / radius) * 1.6
+      tx = baseX + (dx / dist) * push
+      ty = baseY + (dy / dist) * push
+    }
+    const p = group.current.position
+    p.x += (tx - p.x) * 0.06
+    p.y += (ty - p.y) * 0.06
   })
 
   const size = Math.min(Math.max(viewport.width / 6.5, 1.4), 3.4)
