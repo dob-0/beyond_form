@@ -7,19 +7,54 @@ const REDUCE_MOTION =
   typeof window !== 'undefined' &&
   window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
+// scroll velocity drives letter spin boost + drift — module-level so all letters share it
+const scroll = { vel: 0, _t: null }
+if (typeof window !== 'undefined') {
+  let prevY = window.scrollY
+  let prevTime = performance.now()
+  window.addEventListener('scroll', () => {
+    const now = performance.now()
+    const dt = Math.max(now - prevTime, 1)
+    scroll.vel = (window.scrollY - prevY) / dt  // px/ms
+    prevY = window.scrollY
+    prevTime = now
+    clearTimeout(scroll._t)
+    scroll._t = setTimeout(() => { scroll.vel = 0 }, 200)
+  }, { passive: true })
+}
+
 // tumbling composition — fractions of the visible viewport, cropped by edges on purpose
 const LETTERS = [
-  { char: 'B', f: [-0.46, 0.42], z: -0.6, rot: [0.2, -0.3, -0.21], axis: [0.3, 1, 0.1], speed: 0.14 },
-  { char: 'E', f: [-0.06, 0.36], z: 0.4, rot: [-0.1, 0.2, 0.42], axis: [1, 0.2, 0.3], speed: 0.11 },
-  { char: 'Y', f: [0.4, 0.44], z: -0.2, rot: [0.3, 0.1, 1.68], axis: [0.1, 1, 0.4], speed: 0.17 },
-  { char: 'O', f: [-0.31, 0.03], z: 0.8, rot: [-0.2, 0.4, -0.66], axis: [1, 0.4, 0.2], speed: 0.09 },
-  { char: 'N', f: [0.43, 0.04], z: -0.8, rot: [0.1, -0.2, 0.21], axis: [0.4, 1, 0.1], speed: 0.13 },
-  { char: 'F', f: [-0.45, -0.36], z: 0.2, rot: [-0.3, 0.1, 1.12], axis: [0.2, 0.3, 1], speed: 0.15 },
-  { char: 'R', f: [-0.02, -0.46], z: 0.6, rot: [0.2, 0.3, -0.35], axis: [1, 0.1, 0.5], speed: 0.1 },
-  { char: 'M', f: [0.3, -0.4], z: -0.4, rot: [-0.1, -0.4, 2.58], axis: [0.3, 1, 0.3], speed: 0.12 },
+  { char: 'B',      f: [-0.48,  0.44],  z: -1.2, rot: [0.8,  -1.1, -0.7], axis: [0.3, 1,   0.8], speed: 0.38 },
+  { char: 'E',      f: [ 0.05,  0.42],  z:  1.6, rot: [-0.5,  0.9,  1.4], axis: [1,   0.5, 0.3], speed: 0.52 },
+  { char: 'Y',      f: [ 0.46,  0.48],  z: -0.6, rot: [1.2,   0.4,  2.1], axis: [0.2, 1,   0.7], speed: 0.44 },
+  { char: 'O',      f: [-0.42,  0.06],  z:  2.0, rot: [-0.9,  1.2, -1.3], axis: [1,   0.6, 0.4], speed: 0.31 },
+  { char: 'N',      f: [ 0.44,  0.02],  z: -1.8, rot: [0.4,  -0.7,  0.9], axis: [0.5, 1,   0.2], speed: 0.61 },
+  { char: 'D',      f: [ 0.18,  0.22],  z:  0.8, rot: [-1.1,  0.3,  1.7], axis: [0.7, 0.4, 1  ], speed: 0.47 },
+  { char: 'F',      f: [-0.44, -0.38],  z:  0.4, rot: [-0.6,  0.8,  2.3], axis: [0.2, 0.6, 1  ], speed: 0.55 },
+  { char: 'O',      f: [ 0.08, -0.32],  z: -1.0, rot: [0.9,  -0.5, -0.4], axis: [1,   0.3, 0.6], speed: 0.29 },
+  { char: 'R',      f: [ 0.42, -0.44],  z:  1.4, rot: [-0.3,  1.0,  0.6], axis: [0.8, 1,   0.1], speed: 0.67 },
+  { char: 'M',      f: [-0.14, -0.46],  z: -0.4, rot: [1.3,  -1.2,  3.1], axis: [0.4, 0.8, 1  ], speed: 0.41 },
+  { char: 'B',      f: [ 0.28, -0.14],  z:  2.2, rot: [-0.7,  0.6, -1.8], axis: [1,   0.2, 0.9], speed: 0.58 },
+  { char: 'Y',      f: [-0.28,  0.28],  z: -1.6, rot: [0.5,  -0.9,  0.3], axis: [0.3, 1,   0.5], speed: 0.35 },
+  // centre letters — OPEN CALL GYUMRI, each separate, scattered in the middle
+  { char: 'O', f: [-0.18,  0.14],  z:  0.5, rot: [-0.3,  0.4,  0.2], axis: [0.2, 0.8, 0.5], speed: 0.21, sizeScale: 0.44 },
+  { char: 'P', f: [-0.06,  0.18],  z: -0.7, rot: [ 0.4, -0.2,  0.5], axis: [0.5, 0.6, 0.3], speed: 0.27, sizeScale: 0.44 },
+  { char: 'E', f: [ 0.06,  0.08],  z:  1.1, rot: [-0.2,  0.6, -0.3], axis: [0.8, 0.3, 0.6], speed: 0.19, sizeScale: 0.44 },
+  { char: 'N', f: [ 0.16,  0.16],  z: -0.3, rot: [ 0.5, -0.4,  0.4], axis: [0.3, 1,   0.2], speed: 0.32, sizeScale: 0.44 },
+  { char: 'C', f: [-0.15,  0.0 ],  z:  0.8, rot: [-0.4,  0.3,  0.6], axis: [0.6, 0.5, 0.4], speed: 0.24, sizeScale: 0.44 },
+  { char: 'A', f: [-0.02, -0.06],  z: -1.1, rot: [ 0.3, -0.5, -0.2], axis: [1,   0.3, 0.5], speed: 0.18, sizeScale: 0.44 },
+  { char: 'L', f: [ 0.1,  -0.02],  z:  0.4, rot: [-0.1,  0.7,  0.3], axis: [0.4, 0.7, 0.8], speed: 0.29, sizeScale: 0.44 },
+  { char: 'L', f: [ 0.2,  -0.1 ],  z: -0.6, rot: [ 0.6, -0.3,  0.5], axis: [0.7, 0.4, 0.6], speed: 0.22, sizeScale: 0.44 },
+  { char: 'G', f: [-0.16, -0.14],  z:  1.3, rot: [-0.5,  0.4, -0.4], axis: [0.3, 0.9, 0.3], speed: 0.16, sizeScale: 0.44 },
+  { char: 'Y', f: [-0.06, -0.2 ],  z: -0.9, rot: [ 0.4, -0.6,  0.2], axis: [0.5, 0.5, 0.7], speed: 0.23, sizeScale: 0.44 },
+  { char: 'U', f: [ 0.04, -0.12],  z:  0.7, rot: [-0.2,  0.5,  0.6], axis: [0.8, 0.2, 0.6], speed: 0.26, sizeScale: 0.44 },
+  { char: 'M', f: [ 0.14, -0.18],  z: -0.4, rot: [ 0.7, -0.3, -0.5], axis: [0.4, 0.8, 0.5], speed: 0.2,  sizeScale: 0.44 },
+  { char: 'R', f: [-0.1,  -0.08],  z:  1.0, rot: [-0.3,  0.6,  0.3], axis: [0.6, 0.6, 0.3], speed: 0.28, sizeScale: 0.44 },
+  { char: 'I', f: [ 0.22, -0.2 ],  z: -0.8, rot: [ 0.5, -0.4,  0.6], axis: [0.2, 1,   0.4], speed: 0.17, sizeScale: 0.44 },
 ]
 
-function TumblingLetter({ char, f, z, rot, axis, speed }) {
+function TumblingLetter({ char, f, z, rot, axis, speed, sizeScale = 1 }) {
   const group = useRef()
   const { viewport } = useThree()
   const ax = useMemo(() => {
@@ -30,10 +65,12 @@ function TumblingLetter({ char, f, z, rot, axis, speed }) {
 
   useFrame(({ pointer, viewport: vp }, delta) => {
     if (REDUCE_MOTION || !group.current) return
+    // scroll boosts spin speed — both directions
+    const boost = 1 + Math.abs(scroll.vel) * 0.6
     const r = group.current.rotation
-    r.x += ax.x * speed * delta
-    r.y += ax.y * speed * delta
-    r.z += ax.z * speed * delta
+    r.x += ax.x * speed * delta * boost
+    r.y += ax.y * speed * delta * boost
+    r.z += ax.z * speed * delta * boost
     // letters shy away from the cursor
     const baseX = f[0] * vp.width
     const baseY = f[1] * vp.height
@@ -42,20 +79,22 @@ function TumblingLetter({ char, f, z, rot, axis, speed }) {
     const dx = baseX - px
     const dy = baseY - py
     const dist = Math.hypot(dx, dy)
-    const radius = vp.width * 0.2
+    const radius = vp.width * 0.32
     let tx = baseX
     let ty = baseY
     if (dist < radius && dist > 0.001) {
-      const push = (1 - dist / radius) * 1.6
+      const push = (1 - dist / radius) * 3.2
       tx = baseX + (dx / dist) * push
       ty = baseY + (dy / dist) * push
     }
+    // scroll drift — letters float in scroll direction, then snap back
+    ty += scroll.vel * 0.018
     const p = group.current.position
-    p.x += (tx - p.x) * 0.06
-    p.y += (ty - p.y) * 0.06
+    p.x += (tx - p.x) * 0.1
+    p.y += (ty - p.y) * 0.1
   })
 
-  const size = Math.min(Math.max(viewport.width / 6.5, 1.4), 3.4)
+  const size = Math.min(Math.max(viewport.width / 5.0, 1.5), 4.5) * sizeScale
   return (
     <group
       ref={group}
@@ -77,8 +116,8 @@ function Parallax({ children }) {
   useFrame(({ pointer }) => {
     if (REDUCE_MOTION || !group.current) return
     const r = group.current.rotation
-    r.y += (pointer.x * 0.12 - r.y) * 0.04
-    r.x += (-pointer.y * 0.08 - r.x) * 0.04
+    r.y += (pointer.x * 0.22 - r.y) * 0.05
+    r.x += (-pointer.y * 0.16 - r.x) * 0.05
   })
   return <group ref={group}>{children}</group>
 }

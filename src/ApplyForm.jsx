@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 
 // Mirrors the organizers' Google Form (open call) — entry IDs extracted from
 // FB_PUBLIC_LOAD_DATA_. Submissions land in their spreadsheet; labels must
@@ -8,10 +8,12 @@ export const FORM_URL = `https://docs.google.com/forms/d/e/${FORM_ID}/viewform`
 const SUBMIT_URL = `https://docs.google.com/forms/d/e/${FORM_ID}/formResponse`
 
 const EXPERIENCE = [
-  '3D մոդելավորում',
-  '3D տպագրություն',
-  'Վիզուալ պրոյեկցիաներ',
-  'Թվային արվեստ',
+  { en: '3D Modeling',        hy: '3D մոդելավորում' },
+  { en: '3D Printing',        hy: '3D տպագրություն' },
+  { en: 'Visual Projections', hy: 'Վիզուալ պրոյեկցիաներ' },
+  { en: 'Digital Art',        hy: 'Թվային արվեստ' },
+  { en: 'Other',              hy: 'Այլ' },
+  { en: 'No',                 hy: 'Ոչ' },
 ]
 
 // Dual-write: di.iiii serverXR keeps its own copy for the /admin review board.
@@ -28,6 +30,19 @@ const serverXRUrl = () => {
   return `https://di-studio.xyz/serverXR/api/open-calls/${CALL_ID}/applications`
 }
 
+function DoneView() {
+  const ref = useRef()
+  useEffect(() => {
+    ref.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+  }, [])
+  return (
+    <div className="af-done" ref={ref}>
+      <p className="af-done-big" lang="hy">Շնորհակալություն</p>
+      <p className="af-done-small" lang="en">Thank you</p>
+    </div>
+  )
+}
+
 const Field = ({ label, hint, children, optional }) => (
   <label className="af-field">
     <span className="af-label" lang="hy">
@@ -39,12 +54,17 @@ const Field = ({ label, hint, children, optional }) => (
   </label>
 )
 
-export default function ApplyForm() {
+export default function ApplyForm({ onDone }) {
   const [status, setStatus] = useState('idle') // idle | sending | done | error
   const [experience, setExperience] = useState([])
+  const [otherText, setOtherText] = useState('')
 
-  const toggleExp = (opt) =>
-    setExperience((xs) => (xs.includes(opt) ? xs.filter((x) => x !== opt) : [...xs, opt]))
+  const toggleExp = (hy) =>
+    setExperience((xs) => {
+      if (xs.includes(hy)) return xs.filter((x) => x !== hy)
+      if (hy === 'Ոչ') return ['Ոչ']
+      return [...xs.filter((x) => x !== 'Ոչ'), hy]
+    })
 
   const onSubmit = async (e) => {
     e.preventDefault()
@@ -59,7 +79,7 @@ export default function ApplyForm() {
       about: f.about.value,
       why: f.why.value,
       idea: f.idea.value,
-      experience,
+      experience: experience.map((x) => (x === 'Այլ' && otherText.trim() ? otherText.trim() : x)),
       portfolio: f.portfolio.value,
       days: f.days.value,
       laptop: f.laptop.value,
@@ -96,18 +116,13 @@ export default function ApplyForm() {
 
     const [google, server] = await Promise.allSettled([googleWrite, serverWrite])
     if (server.status === 'rejected') console.warn('serverXR copy failed:', server.reason)
-    setStatus(google.status === 'fulfilled' || server.status === 'fulfilled' ? 'done' : 'error')
+    const next = google.status === 'fulfilled' || server.status === 'fulfilled' ? 'done' : 'error'
+    setStatus(next)
+    if (next === 'done') onDone?.()
   }
 
   if (status === 'done') {
-    return (
-      <div className="af-done">
-        <p className="af-done-big" lang="hy">Շնորհակալություն</p>
-        <p lang="en">
-          Your application has been submitted. / Ձեր հայտն ուղարկված է։
-        </p>
-      </div>
-    )
+    return <DoneView />
   }
 
   return (
@@ -146,17 +161,27 @@ export default function ApplyForm() {
           <span className="af-hint" lang="en">Any experience in these areas?</span>
         </legend>
         <div className="af-pills">
-          {EXPERIENCE.map((opt) => (
+          {EXPERIENCE.map(({ en, hy }) => (
             <button
               type="button"
-              key={opt}
-              className={experience.includes(opt) ? 'on' : ''}
-              onClick={() => toggleExp(opt)}
+              key={hy}
+              className={experience.includes(hy) ? 'on' : ''}
+              onClick={() => toggleExp(hy)}
             >
-              {opt}
+              {en} / {hy}
             </button>
           ))}
         </div>
+        {experience.includes('Այլ') && (
+          <input
+            type="text"
+            className="af-other-input"
+            placeholder="Նշեք ձեր փորձը / Specify your experience"
+            value={otherText}
+            onChange={(e) => setOtherText(e.target.value)}
+            style={{ marginTop: '0.8rem' }}
+          />
+        )}
         <input
           type="text"
           required
@@ -178,8 +203,8 @@ export default function ApplyForm() {
             <span className="af-hint" lang="en">Can you attend all three days?</span>
           </legend>
           <div className="af-radios">
-            <label><input type="radio" name="days" value="Այո" required /><span>Այո</span></label>
-            <label><input type="radio" name="days" value="Ոչ" /><span>Ոչ</span></label>
+            <label><input type="radio" name="days" value="Այո" required /><span>Այո / Yes</span></label>
+            <label><input type="radio" name="days" value="Ոչ" /><span>Ոչ / No</span></label>
           </div>
         </fieldset>
         <fieldset className="af-choices">
@@ -188,10 +213,10 @@ export default function ApplyForm() {
             <span className="af-hint" lang="en">Do you have a laptop you can bring?</span>
           </legend>
           <div className="af-radios">
-            <label><input type="radio" name="laptop" value="Այո" required /><span>Այո</span></label>
+            <label><input type="radio" name="laptop" value="Այո" required /><span>Այո / Yes</span></label>
             <label>
               <input type="radio" name="laptop" value="Ոչ, անհրաժեշտ է, որ տրամադրվի աշխատարանի ընթացքում։" />
-              <span>Ոչ, անհրաժեշտ է տրամադրել</span>
+              <span>Ոչ, անհրաժեշտ է տրամադրել / No, need one provided</span>
             </label>
           </div>
         </fieldset>

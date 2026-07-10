@@ -27,11 +27,11 @@ function Houses() {
 
   // the scan's house facades point roughly (-0.87, 0, 0.48) — yaw them to camera
   const BASE_YAW = 1.07
-  useFrame(({ clock, pointer }) => {
+  useFrame(({ clock }) => {
     if (REDUCE_MOTION || !group.current) return
     const t = clock.getElapsedTime()
-    group.current.rotation.y = BASE_YAW + Math.sin(t * 0.25) * 0.18 + pointer.x * 0.25
-    group.current.rotation.x = 0.08 + pointer.y * -0.08
+    group.current.rotation.y = BASE_YAW + Math.sin(t * 0.55) * 0.18
+    group.current.rotation.x = 0.08
   })
 
   return (
@@ -63,7 +63,7 @@ export default function HousesModel({ fallback }) {
         <Canvas
           className="houses-canvas"
           dpr={[1, 1.5]}
-          camera={{ position: [0, 0.5, 7.2], fov: 35 }}
+          camera={{ position: [0, 0.5, 9.5], fov: 32 }}
           gl={{ antialias: true, alpha: true }}
           frameloop={REDUCE_MOTION ? 'demand' : 'always'}
         >

@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react'
+﻿import React, { useEffect, useState } from 'react'
 import HeroScene from './HeroScene.jsx'
 import ThemeCity from './ThemeCity.jsx'
 import ApplyForm from './ApplyForm.jsx'
 import HousesModel from './HousesModel.jsx'
+import FactHouseModel from './FactHouseModel.jsx'
 import housesMark from '../assets/gaw-houses.png'
 import partnerLogos from '../assets/partner-logos.png'
 import academyLogo from '../assets/academy-gyumri-branch-hy.png'
 import gawLogo from '../assets/gyumri-art-week-logo.png'
+import wccLogo from '../assets/wcc-logo.svg'
 
 // Inside the di.iiii space viewer the page runs in a sandboxed srcdoc iframe
 // whose base URL is the parent shell's — a plain href="#id" click there
@@ -117,6 +119,7 @@ function FloatingApply() {
 export default function App() {
   useScrollReveal()
   const progress = useScrollProgress()
+  const [formDone, setFormDone] = useState(false)
   return (
     <>
       <div className="scroll-progress" style={{ transform: `scaleX(${progress})` }} aria-hidden="true" />
@@ -131,7 +134,7 @@ export default function App() {
             <img className="hero-mark" src={housesMark} alt="" aria-hidden="true" />
             Beyond Form
             <br />
-            Բաց կանչ — Open call
+            <span className="oc-glass">Բաց կանչ — Open call</span>
           </div>
           <div className="right">
             Gyumri Art Week
@@ -252,7 +255,7 @@ export default function App() {
 
       <section className="facts" id="facts">
         <article data-reveal>
-          <div className="num">01</div>
+          <FactHouseModel index={0} />
           <h3>Ով / Who</h3>
           <p lang="hy">
             Երիտասարդ արվեստագետներ, ուսանողներ և բոլոր նրանք, ովքեր
@@ -264,7 +267,7 @@ export default function App() {
           </p>
         </article>
         <article data-reveal>
-          <div className="num">02</div>
+          <FactHouseModel index={1} />
           <h3>Ինչ / What</h3>
           <p lang="hy">
             3D մոդելավորում, 3D տպագրություն, վիզուալ պրոյեկցիաներ՝ մենթորների
@@ -276,7 +279,7 @@ export default function App() {
           </p>
         </article>
         <article data-reveal>
-          <div className="num">03</div>
+          <FactHouseModel index={2} />
           <h3>Որտեղ / Where</h3>
           <p lang="hy">
             Հայաստանի Գեղարվեստի Ակադեմիայի Գյումրու մասնաճյուղ
@@ -291,17 +294,19 @@ export default function App() {
       <Marquee dark text="Deadline 25.07 ✳ " />
 
       <section className="apply">
-        <p lang="hy">
-          Աշխատարանների արդյունքում ստեղծված աշխատանքները ցուցադրվելու են
-          հանրային տարածքներում՝ Gyumri Art Week-ի շրջանակում։
-          <br />
-          <span lang="en">
-            The works created as a result of the workshops will be exhibited
-            in public spaces as part of Gyumri Art Week.
-          </span>
-        </p>
-        <h2 className="apply-title">Դիմել — Apply</h2>
-        <ApplyForm />
+        {!formDone && (
+          <>
+            <p lang="hy">
+              Աշխատարանների արդյունքում ստեղծված աշխատանքները ցուցադրվելու են հանրային տարածքներում՝ Gyumri Art Week-ի շրջանակում։
+              <br />
+              <span lang="en">
+                The works created as a result of the workshops will be exhibited in public spaces as part of Gyumri Art Week.
+              </span>
+            </p>
+            <h2 className="apply-title">Դիմել — Apply</h2>
+          </>
+        )}
+        <ApplyForm onDone={() => setFormDone(true)} />
         <p className="dates">Beyond Form · 03.08 — 05.08 · Gyumri</p>
       </section>
       </div>
@@ -320,6 +325,7 @@ export default function App() {
             alt="Հայաստանի պետական գեղարվեստի ակադեմիա — Գյումրու մասնաճյուղ"
           />
           <img src={gawLogo} alt="Gyumri Art Week International" />
+          <img src={wccLogo} alt="WCC" style={{ maxWidth: '150px' }} />
         </div>
         <div className="fine">
           <span>Beyond Form — Open Call</span>
