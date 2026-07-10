@@ -2,7 +2,7 @@ import React, { useMemo, useRef } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { Text3D, Center } from '@react-three/drei'
 import font from './fonts/helvetiker_bold.typeface.json'
-import { useInView, IS_MOBILE } from './useInView.js'
+import { IS_MOBILE } from './useInView.js'
 
 const REDUCE_MOTION =
   typeof window !== 'undefined' &&
@@ -124,25 +124,22 @@ function Parallax({ children }) {
 }
 
 export default function HeroScene() {
-  const [ref, inView] = useInView()
   return (
-    <div ref={ref} style={{ position: 'absolute', inset: 0 }}>
-      <Canvas
-        className="hero-canvas"
-        dpr={[1, IS_MOBILE ? 1.5 : 2]}
-        camera={{ position: [0, 0, 12], fov: 40 }}
-        gl={{ antialias: true }}
-        frameloop={REDUCE_MOTION || !inView ? 'demand' : 'always'}
-      >
-        <color attach="background" args={['#0a0a0a']} />
-        <ambientLight intensity={0.75} />
-        <directionalLight position={[4, 6, 9]} intensity={1.2} />
-        <Parallax>
-          {LETTERS.map((l) => (
-            <TumblingLetter key={l.char + l.f.join()} {...l} />
-          ))}
-        </Parallax>
-      </Canvas>
-    </div>
+    <Canvas
+      className="hero-canvas"
+      dpr={[1, IS_MOBILE ? 1.5 : 2]}
+      camera={{ position: [0, 0, 12], fov: 40 }}
+      gl={{ antialias: true }}
+      frameloop={REDUCE_MOTION ? 'demand' : 'always'}
+    >
+      <color attach="background" args={['#0a0a0a']} />
+      <ambientLight intensity={0.75} />
+      <directionalLight position={[4, 6, 9]} intensity={1.2} />
+      <Parallax>
+        {LETTERS.map((l) => (
+          <TumblingLetter key={l.char + l.f.join()} {...l} />
+        ))}
+      </Parallax>
+    </Canvas>
   )
 }

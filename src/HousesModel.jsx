@@ -2,7 +2,7 @@ import React, { Component, Suspense, useMemo, useRef } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 import * as THREE from 'three'
-import { useInView, IS_MOBILE } from './useInView.js'
+import { IS_MOBILE } from './useInView.js'
 
 // Literal basename matters: scripts/sync-space.mjs uploads the file from
 // public/ as a space asset and rewrites this exact string to the asset URL in
@@ -58,23 +58,20 @@ class ModelBoundary extends Component {
 }
 
 export default function HousesModel({ fallback }) {
-  const [ref, inView] = useInView()
   return (
     <ModelBoundary fallback={fallback}>
       <Suspense fallback={fallback}>
-        <div ref={ref} style={{ width: '100%', height: '100%' }}>
-          <Canvas
-            className="houses-canvas"
-            dpr={[1, IS_MOBILE ? 1 : 1.5]}
-            camera={{ position: [0, 0.5, 9.5], fov: 32 }}
-            gl={{ antialias: true, alpha: true }}
-            frameloop={REDUCE_MOTION || !inView ? 'demand' : 'always'}
-          >
-            <ambientLight intensity={1.1} />
-            <directionalLight position={[4, 6, 8]} intensity={1.3} />
-            <Houses />
-          </Canvas>
-        </div>
+        <Canvas
+          className="houses-canvas"
+          dpr={[1, IS_MOBILE ? 1 : 1.5]}
+          camera={{ position: [0, 0.5, 9.5], fov: 32 }}
+          gl={{ antialias: true, alpha: true }}
+          frameloop={REDUCE_MOTION ? 'demand' : 'always'}
+        >
+          <ambientLight intensity={1.1} />
+          <directionalLight position={[4, 6, 8]} intensity={1.3} />
+          <Houses />
+        </Canvas>
       </Suspense>
     </ModelBoundary>
   )

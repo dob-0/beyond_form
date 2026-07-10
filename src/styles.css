@@ -281,8 +281,7 @@ img { max-width: 100%; display: block; }
 .facts { border-top: 1px solid var(--ink); display: grid; grid-template-columns: repeat(3, 1fr); }
 .facts article { border-right: 1px solid var(--ink); padding: var(--pad); min-height: 42vh; display: flex; flex-direction: column; }
 .facts article:last-child { border-right: 0; }
-.fact-house-host { width: 100px; margin-bottom: 2rem; }
-.fact-house-canvas { width: 100px !important; height: 100px !important; display: block; }
+.fact-house-canvas { width: 100px !important; height: 100px !important; display: block; margin-bottom: 2rem; }
 .facts h3 { font-size: 1rem; text-transform: uppercase; letter-spacing: .06em; margin-bottom: .5rem; }
 .facts p { margin-top: .6rem; }
 

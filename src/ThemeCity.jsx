@@ -2,7 +2,7 @@ import React, { Component, Suspense, useMemo, useRef } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 import * as THREE from 'three'
-import { useInView, IS_MOBILE } from './useInView.js'
+import { IS_MOBILE } from './useInView.js'
 
 // "City and Time": the ten houses of the logo drift scattered in space and
 // assemble into their rows as the visitor scrolls through the theme section —
@@ -111,23 +111,20 @@ class SceneBoundary extends Component {
 }
 
 export default function ThemeCity({ sectionId = 'theme' }) {
-  const [ref, inView] = useInView()
   return (
     <SceneBoundary>
       <Suspense fallback={null}>
-        <div ref={ref} style={{ position: 'absolute', inset: 0 }}>
-          <Canvas
-            className="city-canvas"
-            dpr={[1, IS_MOBILE ? 1 : 1.5]}
-            camera={{ position: [0, 0, 9], fov: 38 }}
-            gl={{ antialias: true, alpha: true }}
-            frameloop={REDUCE_MOTION || !inView ? 'demand' : 'always'}
-          >
-            <ambientLight intensity={1.1} />
-            <directionalLight position={[4, 6, 8]} intensity={1.3} />
-            <City sectionId={sectionId} />
-          </Canvas>
-        </div>
+        <Canvas
+          className="city-canvas"
+          dpr={[1, IS_MOBILE ? 1 : 1.5]}
+          camera={{ position: [0, 0, 9], fov: 38 }}
+          gl={{ antialias: true, alpha: true }}
+          frameloop={REDUCE_MOTION ? 'demand' : 'always'}
+        >
+          <ambientLight intensity={1.1} />
+          <directionalLight position={[4, 6, 8]} intensity={1.3} />
+          <City sectionId={sectionId} />
+        </Canvas>
       </Suspense>
     </SceneBoundary>
   )

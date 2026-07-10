@@ -2,7 +2,7 @@ import React, { Component, Suspense, useMemo, useRef } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 import * as THREE from 'three'
-import { useInView, IS_MOBILE } from './useInView.js'
+import { IS_MOBILE } from './useInView.js'
 
 const MODEL_URL = 'gaw-houses-split.glb'
 
@@ -48,23 +48,20 @@ class Boundary extends Component {
 }
 
 export default function FactHouseModel({ index = 0 }) {
-  const [ref, inView] = useInView()
   return (
     <Boundary>
       <Suspense fallback={null}>
-        <div ref={ref} className="fact-house-host">
-          <Canvas
-            className="fact-house-canvas"
-            dpr={[1, IS_MOBILE ? 1 : 1.5]}
-            camera={{ position: [0, 0, 7.2], fov: 35 }}
-            gl={{ antialias: true, alpha: true }}
-            frameloop={REDUCE_MOTION || !inView ? 'demand' : 'always'}
-          >
-            <ambientLight intensity={1.1} />
-            <directionalLight position={[4, 6, 8]} intensity={1.3} />
-            <SingleHouse index={index} />
-          </Canvas>
-        </div>
+        <Canvas
+          className="fact-house-canvas"
+          dpr={[1, IS_MOBILE ? 1 : 1.5]}
+          camera={{ position: [0, 0, 7.2], fov: 35 }}
+          gl={{ antialias: true, alpha: true }}
+          frameloop={REDUCE_MOTION ? 'demand' : 'always'}
+        >
+          <ambientLight intensity={1.1} />
+          <directionalLight position={[4, 6, 8]} intensity={1.3} />
+          <SingleHouse index={index} />
+        </Canvas>
       </Suspense>
     </Boundary>
   )
