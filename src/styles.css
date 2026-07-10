@@ -6,7 +6,7 @@
   --font-hy: "Montserrat", "Noto Sans Armenian", sans-serif;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
 body {
   font-family: var(--font-en);
   font-size: 16px;
@@ -14,6 +14,11 @@ body {
   color: var(--ink);
   line-height: 1.45;
   -webkit-font-smoothing: antialiased;
+  /* stop any stray full-bleed element from widening the document, which on
+     mobile makes the browser fit-scale and show a paper strip beside the hero */
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
 }
 [lang="hy"] { font-family: var(--font-hy); font-size: 14px; }
 [lang="en"] { font-family: var(--font-en); font-size: 16px; }
@@ -424,8 +429,12 @@ footer .houses { width: clamp(160px, 22vw, 280px); margin-bottom: 2rem; }
 footer .houses-3d { height: clamp(200px, 28vw, 360px); width: 100%; margin-bottom: 1.5rem; }
 footer .houses-3d canvas { display: block; }
 footer .houses-3d .houses { margin-top: 4rem; }
-footer .partners { display: flex; flex-wrap: wrap; align-items: center; gap: 2rem; }
-footer .partners img { max-height: 56px; width: auto; }
+footer .partners { display: flex; flex-wrap: wrap; align-items: center; gap: 1.6rem 2.4rem; }
+/* logos ship at very different aspect ratios — normalise to one optical height
+   and never let the wide combined strip push past the frame */
+footer .partners img { max-height: 46px; width: auto; max-width: 100%; object-fit: contain; }
+/* the combined partners strip (≈11:1) reads better a touch shorter */
+footer .partners img:first-child { max-height: 34px; }
 footer .fine {
   margin-top: 2.5rem;
   padding-top: 1rem;

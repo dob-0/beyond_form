@@ -325,7 +325,7 @@ export default function App() {
             alt="Հայաստանի պետական գեղարվեստի ակադեմիա — Գյումրու մասնաճյուղ"
           />
           <img src={gawLogo} alt="Gyumri Art Week International" />
-          <img src={wccLogo} alt="WCC" style={{ maxWidth: '150px' }} />
+          <img src={wccLogo} alt="WCC" />
         </div>
         <div className="fine">
           <span>Beyond Form — Open Call</span>
