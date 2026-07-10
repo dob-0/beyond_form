@@ -1,6 +1,14 @@
 # CURRENT — beyond_form
 
-## Last session (2026-07-09, continued)
+## Last session (2026-07-10)
+
+- Merged collaborators' forks: `ginsyuz` (content + footer logos) and `emilyanikoghosyan`/Emilia (bilingual form, WCC/G.URBAN logo, glass Open Call text, footer model, thank-you flow) — clean fast-forward; briefly grafted per-house breathing onto her HousesModel then reverted so **Emilia's `14df815` is authoritative**.
+- Mobile fixes shipped to prod (**https://di-studio.xyz/beyond_form**, first prod deploy — provisioned space `beyond-form`): hero horizontal-overflow guard (`html/body overflow-x:hidden` — killed the right-edge paper strip), centred/normalised footer partner-logo band, mobile dpr cap, restored "City and Time" scroll-assembly on mobile as a dimmed backdrop.
+- ApplyForm Yes/No radios: replaced native `accent-color:paper` (invisible-when-selected on dark) with a custom target that fills paper when checked.
+- **Lesson (do not repeat):** off-screen canvas pausing via IntersectionObserver (`frameloop:demand`) breaks inside di.iiii's sandboxed srcdoc iframe — below-fold models never render. Kept all canvases `frameloop:always`; `src/mobile.js` now only exports `IS_MOBILE`.
+- Staging and prod in parity; git clean at `f0c1556`.
+
+## Previous session (2026-07-09, continued)
 
 - Apply-first interactivity shipped: hero Apply CTA, two marquee bands funneling to #apply, floating Apply pill (hero→form gap), cursor-repelled 3D hero letters, scroll-reveal sections, difference-blend scroll-progress hairline — all reduced-motion-safe.
 - Logos composited: houses mark + partner strip now transparent PNGs on paper (no white boxes); houses mark added to hero (inverted) and as favicon.
@@ -14,6 +22,8 @@
 
 ## Open
 
+- [ ] Academy of Fine Arts (Gyumri) footer logo is a light-gray asset — reads faint on the paper footer; needs a darker version or leave as brand intends.
+- [ ] Footer 3D village showed the static fallback (not the rotating model) on user's phone — likely WebGL context limit with several canvases on the page; revisit if it matters.
 - [ ] Promote di.iiii `dev → main` for production (di.iiii CURRENT: one manual OAuth click-through on staging first).
 - [ ] Organizer content still missing: application deadline, mentor names, day-by-day program.
 - [ ] Stage 3 (optional): applicant confirmation/decision emails — needs SMTP/provider decision.
