@@ -166,8 +166,8 @@ export default function App() {
           <p className="lead">
             Beyond Form-ը եռօրյա ստեղծագործական աշխատարան է, որն իրականացվում է
             Gyumri Art Week-ի շրջանակում՝ Ժամանակակից արվեստի ինստիտուտի,
-            Գյումրու Գեղարվեստի ակադեմիայի և G.Urban Platform-ի
-            համագործակցությամբ։
+            Հայաստանի գեղարվեստի պետական ակադեմիայի Գյումրու մասնաճյուղի և
+            G.Urban Platform-ի համագործակցությամբ։
           </p>
           <p>
             Աշխատարանը նախատեսված է երիտասարդ արվեստագետների, ուսանողների և
@@ -187,8 +187,8 @@ export default function App() {
           <p className="lead">
             Beyond Form is a three-day creative workshop, implemented within
             the framework of Gyumri Art Week, in cooperation with the Institute
-            of Contemporary Art, Gyumri Academy of Fine Arts and G.Urban
-            Platform.
+            of Contemporary Art, the Gyumri Branch of the State Academy of
+            Fine Arts of Armenia, and G.Urban Platform.
           </p>
           <p>
             The workshop is intended for young artists, students and all those
@@ -282,10 +282,10 @@ export default function App() {
           <FactHouseModel index={2} />
           <h3>Որտեղ / Where</h3>
           <p lang="hy">
-            Հայաստանի Գեղարվեստի Ակադեմիայի Գյումրու մասնաճյուղ
+            Հայաստանի գեղարվեստի պետական ակադեմիայի Գյումրու մասնաճյուղ
           </p>
           <p lang="en">
-            Academy of Fine Arts, Gyumri, Armenia
+            Gyumri Branch of the State Academy of Fine Arts of Armenia
           </p>
         </article>
       </section>

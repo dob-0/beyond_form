@@ -368,7 +368,7 @@ img { max-width: 100%; display: block; }
 }
 .af-other-input:focus { background: rgba(244, 242, 238, .07); }
 .af-other-input::placeholder { opacity: .45; }
-.af-choices-required {
+.af input[type="text"].af-choices-required {
   position: absolute;
   width: 1px;
   height: 1px;

@@ -38,21 +38,6 @@ const LETTERS = [
   { char: 'M',      f: [-0.14, -0.46],  z: -0.4, rot: [1.3,  -1.2,  3.1], axis: [0.4, 0.8, 1  ], speed: 0.41 },
   { char: 'B',      f: [ 0.28, -0.14],  z:  2.2, rot: [-0.7,  0.6, -1.8], axis: [1,   0.2, 0.9], speed: 0.58 },
   { char: 'Y',      f: [-0.28,  0.28],  z: -1.6, rot: [0.5,  -0.9,  0.3], axis: [0.3, 1,   0.5], speed: 0.35 },
-  // centre letters — OPEN CALL GYUMRI, each separate, scattered in the middle
-  { char: 'O', f: [-0.18,  0.14],  z:  0.5, rot: [-0.3,  0.4,  0.2], axis: [0.2, 0.8, 0.5], speed: 0.21, sizeScale: 0.44 },
-  { char: 'P', f: [-0.06,  0.18],  z: -0.7, rot: [ 0.4, -0.2,  0.5], axis: [0.5, 0.6, 0.3], speed: 0.27, sizeScale: 0.44 },
-  { char: 'E', f: [ 0.06,  0.08],  z:  1.1, rot: [-0.2,  0.6, -0.3], axis: [0.8, 0.3, 0.6], speed: 0.19, sizeScale: 0.44 },
-  { char: 'N', f: [ 0.16,  0.16],  z: -0.3, rot: [ 0.5, -0.4,  0.4], axis: [0.3, 1,   0.2], speed: 0.32, sizeScale: 0.44 },
-  { char: 'C', f: [-0.15,  0.0 ],  z:  0.8, rot: [-0.4,  0.3,  0.6], axis: [0.6, 0.5, 0.4], speed: 0.24, sizeScale: 0.44 },
-  { char: 'A', f: [-0.02, -0.06],  z: -1.1, rot: [ 0.3, -0.5, -0.2], axis: [1,   0.3, 0.5], speed: 0.18, sizeScale: 0.44 },
-  { char: 'L', f: [ 0.1,  -0.02],  z:  0.4, rot: [-0.1,  0.7,  0.3], axis: [0.4, 0.7, 0.8], speed: 0.29, sizeScale: 0.44 },
-  { char: 'L', f: [ 0.2,  -0.1 ],  z: -0.6, rot: [ 0.6, -0.3,  0.5], axis: [0.7, 0.4, 0.6], speed: 0.22, sizeScale: 0.44 },
-  { char: 'G', f: [-0.16, -0.14],  z:  1.3, rot: [-0.5,  0.4, -0.4], axis: [0.3, 0.9, 0.3], speed: 0.16, sizeScale: 0.44 },
-  { char: 'Y', f: [-0.06, -0.2 ],  z: -0.9, rot: [ 0.4, -0.6,  0.2], axis: [0.5, 0.5, 0.7], speed: 0.23, sizeScale: 0.44 },
-  { char: 'U', f: [ 0.04, -0.12],  z:  0.7, rot: [-0.2,  0.5,  0.6], axis: [0.8, 0.2, 0.6], speed: 0.26, sizeScale: 0.44 },
-  { char: 'M', f: [ 0.14, -0.18],  z: -0.4, rot: [ 0.7, -0.3, -0.5], axis: [0.4, 0.8, 0.5], speed: 0.2,  sizeScale: 0.44 },
-  { char: 'R', f: [-0.1,  -0.08],  z:  1.0, rot: [-0.3,  0.6,  0.3], axis: [0.6, 0.6, 0.3], speed: 0.28, sizeScale: 0.44 },
-  { char: 'I', f: [ 0.22, -0.2 ],  z: -0.8, rot: [ 0.5, -0.4,  0.6], axis: [0.2, 1,   0.4], speed: 0.17, sizeScale: 0.44 },
 ]
 
 function TumblingLetter({ char, f, z, rot, axis, speed, sizeScale = 1 }) {
