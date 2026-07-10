@@ -2,7 +2,7 @@ import React, { Component, Suspense, useMemo, useRef } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 import * as THREE from 'three'
-import { IS_MOBILE } from './useInView.js'
+import { IS_MOBILE } from './mobile.js'
 
 const MODEL_URL = 'gaw-houses-split.glb'
 

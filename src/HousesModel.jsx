@@ -2,7 +2,7 @@ import React, { Component, Suspense, useMemo, useRef } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 import * as THREE from 'three'
-import { IS_MOBILE } from './useInView.js'
+import { IS_MOBILE } from './mobile.js'
 
 // Literal basename matters: scripts/sync-space.mjs uploads the file from
 // public/ as a space asset and rewrites this exact string to the asset URL in

@@ -2,7 +2,7 @@ import React, { Component, Suspense, useMemo, useRef } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 import * as THREE from 'three'
-import { IS_MOBILE } from './useInView.js'
+import { IS_MOBILE } from './mobile.js'
 
 // "City and Time": the ten houses of the logo drift scattered in space and
 // assemble into their rows as the visitor scrolls through the theme section —

@@ -2,7 +2,7 @@ import React, { useMemo, useRef } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { Text3D, Center } from '@react-three/drei'
 import font from './fonts/helvetiker_bold.typeface.json'
-import { IS_MOBILE } from './useInView.js'
+import { IS_MOBILE } from './mobile.js'
 
 const REDUCE_MOTION =
   typeof window !== 'undefined' &&
