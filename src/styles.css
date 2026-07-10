@@ -428,12 +428,19 @@ footer .houses { width: clamp(160px, 22vw, 280px); margin-bottom: 2rem; }
 footer .houses-3d { height: clamp(200px, 28vw, 360px); width: 100%; margin-bottom: 1.5rem; }
 footer .houses-3d canvas { display: block; }
 footer .houses-3d .houses { margin-top: 4rem; }
-footer .partners { display: flex; flex-wrap: wrap; align-items: center; gap: 1.6rem 2.4rem; }
-/* logos ship at very different aspect ratios — normalise to one optical height
-   and never let the wide combined strip push past the frame */
-footer .partners img { max-height: 46px; width: auto; max-width: 100%; object-fit: contain; }
-/* the combined partners strip (≈11:1) reads better a touch shorter */
-footer .partners img:first-child { max-height: 34px; }
+/* even, centred logo band — normalise the very different aspect ratios to one
+   optical height and let rows centre so they read as a deliberate lockup
+   rather than ragged left-aligned wraps */
+footer .partners {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1.8rem 2.6rem;
+}
+footer .partners img { max-height: 42px; width: auto; max-width: 100%; object-fit: contain; }
+/* the combined partners strip (≈11:1) sits on its own centred row, a touch shorter */
+footer .partners img:first-child { max-height: 30px; flex-basis: 100%; object-position: center; }
 footer .fine {
   margin-top: 2.5rem;
   padding-top: 1rem;
