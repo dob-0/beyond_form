@@ -10,6 +10,15 @@ Vite + React + React Three Fiber (versions matched to di.iiii: react 18.3,
 three 0.166, @react-three/fiber 8, drei 9). Sibling of the di.iiii platform,
 linked in as space `beyond_form` via `di-space.json` + `scripts/sync-space.mjs`.
 
+`scripts/sync-space.mjs` is a **vendored copy** of di.iiii's `scripts/space-sync.mjs`
+— never edit it here. Change it upstream, then `npm run space:sync:release` in
+di.iiii (writes here, bumps `di-space.space.json`'s `minEngine` to match, commits,
+pushes — see `docs/ai/space-sync-vendoring.md` there). `scripts/sync-space-check.mjs`
++ `.github/workflows/vendor-check.yml` (also vendored) verify this repo hasn't
+drifted, on every push and weekly — a fresh HTTPS fetch of di.iiii's public repo,
+no token needed. If it goes red, the fix is always `npm run space:sync:release`
+in di.iiii.
+
 ## Rules
 
 - **Read `CURRENT.md` before the first edit of a session.**
