@@ -492,8 +492,26 @@ img { max-width: 100%; display: block; }
   opacity: .25;
   letter-spacing: 0;
 }
-.work-model { grid-column: 1; grid-row: 2; align-self: start; height: 300px; margin-top: .4rem; }
+.work-model { grid-column: 1; grid-row: 2; align-self: start; height: 300px; margin-top: .4rem; position: relative; }
 .work-model canvas { display: block; }
+/* same minimal bordered-chip language as .works-part and the hero CTA */
+.work-xr { position: absolute; left: 0; bottom: 0; display: flex; gap: .5rem; }
+.work-xr button {
+  appearance: none;
+  background: transparent;
+  border: 1px solid currentColor;
+  color: inherit;
+  padding: .35em .9em;
+  font: inherit;
+  font-size: .8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  cursor: pointer;
+  min-height: 44px;
+}
+.work-xr button:hover { background: var(--ink); color: var(--paper); }
+.work:hover .work-xr button:hover { background: var(--paper); color: var(--ink); }
 .work h3 .hy { display: block; font-size: .85em; font-weight: 500; margin-top: .2rem; text-transform: none; letter-spacing: 0; }
 .work-title { grid-column: 2; grid-row: 1; margin-top: .5rem; font-style: italic; opacity: .7; }
 .work-title [lang="hy"] { font-style: normal; }

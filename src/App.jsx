@@ -212,7 +212,7 @@ function Works() {
 const MARQUEE_BASE_TEXT = 'Աշխատանքներ ✳ Works ✳ Beyond Form ✳ 07.08 — 20.08 ✳ Gyumri ✳ '
 const MARQUEE_BASE_DURATION = 22 // seconds, tuned for MARQUEE_BASE_TEXT's length
 
-function Marquee({ dark, text }) {
+function Marquee({ dark, text, href = '#works', label = 'Works' }) {
   const content = text || MARQUEE_BASE_TEXT
   const items = Array.from({ length: 6 }, (_, i) => (
     <span key={i}>{content}</span>
@@ -220,7 +220,7 @@ function Marquee({ dark, text }) {
   // keep scroll speed (px/s) constant regardless of text length
   const duration = MARQUEE_BASE_DURATION * (content.length / MARQUEE_BASE_TEXT.length)
   return (
-    <a className={`marquee${dark ? ' dark' : ''}`} href="#works" onClick={onFragmentClick} aria-label="Works">
+    <a className={`marquee${dark ? ' dark' : ''}`} href={href} onClick={onFragmentClick} aria-label={label}>
       <div className="marquee-track" style={{ animationDuration: `${duration}s` }} aria-hidden="true">
         <div className="marquee-chunk">{items}</div>
         <div className="marquee-chunk">{items}</div>
@@ -305,6 +305,10 @@ export default function App() {
           <a href="#facts">Մանրամասներ / Details</a>
         </nav>
       </header>
+
+      <Works />
+
+      <Marquee dark text="Աշխատարան ✳ Workshop ✳ Gyumri Art Week ✳ " href="#about" label="Workshop" />
 
       <section className="about" id="about">
         <div className="am" lang="hy" data-reveal>
@@ -435,9 +439,6 @@ export default function App() {
           </p>
         </article>
       </section>
-
-      <Marquee dark text="Աշխատանքներ ✳ Works ✳ Gyumri Art Week ✳ " />
-      <Works />
 
       <footer>
         <div className="houses-3d">

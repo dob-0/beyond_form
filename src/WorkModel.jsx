@@ -1,5 +1,5 @@
 import React, { Component, Suspense, useEffect, useMemo, useRef, useState } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
+import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 import * as THREE from 'three'
 import { IS_MOBILE } from './mobile.js'
@@ -17,7 +17,7 @@ const MATERIAL = new THREE.MeshStandardMaterial({
   flatShading: true,
 })
 
-function WorkMesh({ url }) {
+function WorkMesh({ url, xrActive }) {
   const group = useRef()
   const { scene } = useGLTF(url)
 
@@ -38,13 +38,29 @@ function WorkMesh({ url }) {
     group.current.rotation.y = clock.getElapsedTime() * 0.35
   })
 
+  // in an XR session the page scale (~4.6 units to fill a 300px card) would
+  // tower over the viewer — present it hand-sized at standing eye height
   return (
-    <group ref={group} rotation={[0.12, 0, 0]}>
-      <group scale={scale}>
+    <group
+      ref={group}
+      rotation={[0.12, 0, 0]}
+      position={xrActive ? [0, 1.2, -1.6] : [0, 0, 0]}
+    >
+      <group scale={scale * (xrActive ? 0.28 : 1)}>
         <primitive object={node} />
       </group>
     </group>
   )
+}
+
+// grabs the renderer so the buttons outside the Canvas can hand it a session
+function XrBridge({ glRef }) {
+  const gl = useThree((s) => s.gl)
+  useEffect(() => {
+    gl.xr.enabled = true
+    glRef.current = gl
+  }, [gl, glRef])
+  return null
 }
 
 class Boundary extends Component {
@@ -60,7 +76,10 @@ class Boundary extends Component {
 // srcdoc iframe; observers themselves fire fine — data-reveal relies on them.)
 export default function WorkModel({ url }) {
   const holder = useRef()
+  const glRef = useRef(null)
   const [near, setNear] = useState(false)
+  const [xrModes, setXrModes] = useState([])
+  const [xrActive, setXrActive] = useState(false)
   useEffect(() => {
     if (typeof IntersectionObserver === 'undefined') { setNear(true); return }
     const observer = new IntersectionObserver(
@@ -70,8 +89,37 @@ export default function WorkModel({ url }) {
     observer.observe(holder.current)
     return () => observer.disconnect()
   }, [])
+  useEffect(() => {
+    const xr = typeof navigator !== 'undefined' ? navigator.xr : null
+    if (!xr?.isSessionSupported) return
+    let cancelled = false
+    Promise.all(
+      ['immersive-ar', 'immersive-vr'].map((mode) =>
+        xr.isSessionSupported(mode).then((ok) => (ok ? mode : null)).catch(() => null)
+      )
+    ).then((modes) => {
+      if (!cancelled) setXrModes(modes.filter(Boolean))
+    })
+    return () => { cancelled = true }
+  }, [])
+
+  const enterXr = async (mode) => {
+    const gl = glRef.current
+    if (!gl) return
+    try {
+      const session = await navigator.xr.requestSession(mode, {
+        optionalFeatures: ['local-floor'],
+      })
+      session.addEventListener('end', () => setXrActive(false))
+      setXrActive(true)
+      await gl.xr.setSession(session)
+    } catch {
+      setXrActive(false)
+    }
+  }
+
   return (
-    <div ref={holder} className="work-model" aria-hidden="true">
+    <div ref={holder} className="work-model">
       {near && (
         <Boundary>
           <Suspense fallback={null}>
@@ -81,12 +129,27 @@ export default function WorkModel({ url }) {
               gl={{ antialias: true, alpha: true }}
               frameloop={REDUCE_MOTION ? 'demand' : 'always'}
             >
+              <XrBridge glRef={glRef} />
               <ambientLight intensity={0.9} />
               <directionalLight position={[4, 6, 8]} intensity={1.4} />
               <directionalLight position={[-5, -2, -6]} intensity={0.35} />
-              <WorkMesh url={url} />
+              <WorkMesh url={url} xrActive={xrActive} />
             </Canvas>
           </Suspense>
+          {xrModes.length > 0 && (
+            <div className="work-xr">
+              {xrModes.includes('immersive-ar') && (
+                <button type="button" aria-label="View this work in augmented reality" onClick={() => enterXr('immersive-ar')}>
+                  AR ↗
+                </button>
+              )}
+              {xrModes.includes('immersive-vr') && (
+                <button type="button" aria-label="View this work in virtual reality" onClick={() => enterXr('immersive-vr')}>
+                  VR ↗
+                </button>
+              )}
+            </div>
+          )}
         </Boundary>
       )}
     </div>
