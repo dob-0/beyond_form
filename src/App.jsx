@@ -131,6 +131,9 @@ function Works() {
           Աշխատանքներ
         </span>
       </h2>
+      <p className="works-part" data-reveal>
+        <span lang="hy">Մաս 1</span> — Part 1
+      </p>
       <p className="works-venue" data-reveal>
         <span lang="hy">Աշխատարանի արդյունքում ստեղծված աշխատանքները ցուցադրվում են հանրային տարածքներում՝ Gyumri Art Week-ի շրջանակում։</span>
         <br />
@@ -142,9 +145,12 @@ function Works() {
         </a>
       </p>
       <div className="works-list">
-        {WORKS.map((w) => (
-          <article className={`work${w.tba ? ' tba' : ''}`} key={w.artist} data-reveal>
+        {/* entries missing a concept or info stay in WORKS but are held back
+            from the public list until they are filled in */}
+        {WORKS.filter((w) => !w.tba).map((w, i) => (
+          <article className="work" key={w.artist} data-reveal>
             <h3>
+              <span className="work-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
               {w.artist}
               {w.artistHy && (
                 <>
@@ -155,32 +161,24 @@ function Works() {
                 </>
               )}
             </h3>
-            {w.tba ? (
+            {w.titleEn && (
               <p className="work-title">
-                <span lang="hy">Կոնցեպտը դեռ չի ներկայացվել</span> — Concept not yet submitted
+                {w.titleEn}
+                {w.titleHy && <span lang="hy"> · {w.titleHy}</span>}
               </p>
-            ) : (
-              <>
-                {w.titleEn && (
-                  <p className="work-title">
-                    {w.titleEn}
-                    {w.titleHy && <span lang="hy"> · {w.titleHy}</span>}
-                  </p>
-                )}
-                <div className="work-text">
-                  <div lang="hy">
-                    {w.hy.map((p, i) => (
-                      <p key={i}>{p}</p>
-                    ))}
-                  </div>
-                  <div lang="en">
-                    {w.en.map((p, i) => (
-                      <p key={i}>{p}</p>
-                    ))}
-                  </div>
-                </div>
-              </>
             )}
+            <div className="work-text">
+              <div lang="hy">
+                {w.hy.map((p, i) => (
+                  <p key={i}>{p}</p>
+                ))}
+              </div>
+              <div lang="en">
+                {w.en.map((p, i) => (
+                  <p key={i}>{p}</p>
+                ))}
+              </div>
+            </div>
           </article>
         ))}
       </div>
