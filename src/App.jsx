@@ -2,6 +2,7 @@
 import HeroScene from './HeroScene.jsx'
 import ThemeCity from './ThemeCity.jsx'
 import HousesModel from './HousesModel.jsx'
+import WorkModel from './WorkModel.jsx'
 import FactHouseModel from './FactHouseModel.jsx'
 import housesMark from '../assets/gaw-houses.png'
 import partnerLogos from '../assets/partner-logos.png'
@@ -66,6 +67,7 @@ const WORKS = [
   {
     artist: 'Arthur Steiner',
     artistHy: 'Արթուր Շտայներ',
+    model: 'work-arthur.glb',
     hy: [
       'Այս ստեղծագործությունն ուսումնասիրում է ներկայի և անհասանելի ապագայի միջև առկա լուռ լարվածությունը՝ սյուրռեալիստական տիեզերական բախման միջոցով։ Հսկայական, մեկ թև ունեցող շինությունը, որն ի վիճակի չէ թռչելու, կանգնած է մեկուսացած, մինչ ընկնող աստղը բախվում է անմիջապես կառույցին։',
       'Այս ապոկալիպտիկ պահը իր հետևում թողնում է դատարկության տագնապալի զգացում՝ արտահայտելով երկու ժամանակային գծերի հարկադրված բախման անհնարինությունը։',
@@ -78,6 +80,7 @@ const WORKS = [
   {
     artist: 'Ani Petrosyan',
     artistHy: 'Անի Պետրոսյան',
+    model: 'work-ani.glb',
     titleHy: '«Ժամանակի ճեղք»',
     titleEn: '"The Rift of Time"',
     hy: [
@@ -94,6 +97,7 @@ const WORKS = [
   {
     artist: 'Daria Daka Vasiuta',
     artistHy: 'Դարիա Դակա Վասիուտա',
+    model: 'work-daria.glb',
     titleHy: '«AVGYR: Gyumri» — իմ անձնական առասպելը՝ տեղափոխված այստեղ',
     titleEn: '"AVGYR: Gyumri" — my personal mythology, brought here',
     hy: [
@@ -110,6 +114,7 @@ const WORKS = [
   {
     artist: 'Kristine Sargsyan',
     artistHy: 'Քրիստինե Սարգսյան',
+    model: 'work-kristine.glb',
     hy: [
       'Ստեղծագործությունն անդրադառնում է անցողիկ պահերը պահպանելու մարդկային ձգտմանը՝ միաժամանակ գիտակցելով, որ ոչ մի արձանագրություն չի կարող ամբողջությամբ ամփոփել ապրած փորձառությունը։',
       'Տեղադրված լինելով քաղաքի առօրյա միջավայրում՝ այն դառնում է դիտելու գործողության մի մասը՝ հրավիրելով անցորդներին խորհելու, թե ինչպես է հիշողությունը շարունակաբար ձևավորվում ժամանակի, վայրի և այն սովորական պահերի միջոցով, որոնք մենք ընտրում ենք նկատել։',
@@ -119,6 +124,8 @@ const WORKS = [
       "Installed within the city's everyday landscape, it becomes part of the act of observing — inviting passersby to reflect on how memory is continually shaped through time, place, and the ordinary moments we choose to notice.",
     ],
   },
+  // mila-1..4.glb wait in references/works-staged/ with the rest of the
+  // conceptless models (alla, ine, levon, shushan, telik-ppp, vova)
   { artist: 'Milena', tba: true },
 ]
 
@@ -161,6 +168,7 @@ function Works() {
                 </>
               )}
             </h3>
+            {w.model && <WorkModel url={w.model} />}
             {w.titleEn && (
               <p className="work-title">
                 {w.titleEn}
