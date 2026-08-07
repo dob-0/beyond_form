@@ -14,7 +14,7 @@
 
 - [ ] **Part 2**: user says 4 more artists were added, but the doc still shows only part 1 (verified twice 2026-08-08) — get the saved/new doc link tomorrow, then wire ՄԱՍ 2 (05–08) from staged GLBs (ani, alla, ine, levon, shushan, telik-ppp, vova, mila-2..4 — match names against the doc).
 - [ ] di.iiii production deploy approval: https://github.com/dob-0/di.iiii/actions/runs/31177349894 (then one OAuth sign-in check on di-studio.xyz).
-- [ ] AR/VR untested on a real device — user should tap AR on an Android phone (reticle → tap places, tap copy removes).
+- [x] AR verified on the user's phone 2026-08-08 — tap-to-place/remove works ("its good").
 - [ ] Ani Petrosyan returns in some later part — entry + `references/works-staged/ani.glb` ready, flip `held`.
 - [ ] di-bo big-file rig (`scripts/fetch-large.py` in di-bo repo) still needs `TELEGRAM_API_ID`/`HASH` from my.telegram.org if the bot path is ever wanted.
 
