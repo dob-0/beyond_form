@@ -3,7 +3,6 @@ import HeroScene from './HeroScene.jsx'
 import ThemeCity from './ThemeCity.jsx'
 import HousesModel from './HousesModel.jsx'
 import WorkModel from './WorkModel.jsx'
-import FactHouseModel from './FactHouseModel.jsx'
 import housesMark from '../assets/gaw-houses.png'
 import partnerLogos from '../assets/partner-logos.png'
 import academyLogo from '../assets/academy-gyumri-branch-hy.png'
@@ -156,16 +155,6 @@ function Works() {
       <p className="works-part" data-reveal>
         <span lang="hy">Մաս 1</span> — Part 1
       </p>
-      <p className="works-venue" data-reveal>
-        <span lang="hy">Աշխատարանի արդյունքում ստեղծված աշխատանքները ցուցադրվում են հանրային տարածքներում՝ Gyumri Art Week-ի շրջանակում։</span>
-        <br />
-        The works created during the workshop are exhibited in public spaces as part of Gyumri Art Week.
-        <br />
-        <span lang="hy">Հրապարակային ցուցադրություն</span> — Public exhibition ·{' '}
-        <a href="https://maps.app.goo.gl/18NibwM33nCDT78y9" target="_blank" rel="noreferrer">
-          188 Shahumyan St, Gyumri
-        </a>
-      </p>
       <div className="works-list">
         {/* entries missing a concept/info (tba) or not on the current doc
             roster (held) stay in WORKS but out of the public list */}
@@ -302,7 +291,6 @@ export default function App() {
           <a href="#works">Աշխատանքներ / Works</a>
           <a href="#about">Աշխատարան / Workshop</a>
           <a href="#theme">Թեմա / Theme</a>
-          <a href="#facts">Մանրամասներ / Details</a>
         </nav>
       </header>
 
@@ -401,43 +389,6 @@ export default function App() {
             </p>
           </div>
         </div>
-      </section>
-
-      <section className="facts" id="facts">
-        <article data-reveal>
-          <FactHouseModel index={0} />
-          <h3>Ով / Who</h3>
-          <p lang="hy">
-            Երիտասարդ արվեստագետներ, ուսանողներ և բոլոր նրանք, ովքեր
-            հետաքրքրված են ժամանակակից արվեստով և նոր մեդիաներով։
-          </p>
-          <p lang="en">
-            Young artists, students, and anyone interested in contemporary art
-            and new media.
-          </p>
-        </article>
-        <article data-reveal>
-          <FactHouseModel index={1} />
-          <h3>Ինչ / What</h3>
-          <p lang="hy">
-            3D մոդելավորում, 3D տպագրություն, վիզուալ պրոյեկցիաներ՝ մենթորների
-            աջակցությամբ։
-          </p>
-          <p lang="en">
-            3D modeling, 3D printing, and visual projections — developed with
-            the support of mentors.
-          </p>
-        </article>
-        <article data-reveal>
-          <FactHouseModel index={2} />
-          <h3>Որտեղ / Where</h3>
-          <p lang="hy">
-            Հայաստանի գեղարվեստի պետական ակադեմիայի Գյումրու մասնաճյուղ
-          </p>
-          <p lang="en">
-            Gyumri Branch of the State Academy of Fine Arts of Armenia
-          </p>
-        </article>
       </section>
 
       <footer>
