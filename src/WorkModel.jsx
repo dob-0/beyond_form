@@ -17,7 +17,7 @@ const MATERIAL = new THREE.MeshStandardMaterial({
   flatShading: true,
 })
 
-function WorkMesh({ url, xrActive }) {
+function WorkMesh({ url, xrMode }) {
   const group = useRef()
   const { scene } = useGLTF(url)
 
@@ -39,14 +39,12 @@ function WorkMesh({ url, xrActive }) {
   })
 
   // in an XR session the page scale (~4.6 units to fill a 300px card) would
-  // tower over the viewer — present it hand-sized at standing eye height
+  // tower over the viewer — present it hand-sized in front of them. AR runs
+  // on the 'local' space (origin at the head), VR on 'local-floor'.
+  const position = xrMode === 'ar' ? [0, -0.15, -1.3] : xrMode === 'vr' ? [0, 1.2, -1.6] : [0, 0, 0]
   return (
-    <group
-      ref={group}
-      rotation={[0.12, 0, 0]}
-      position={xrActive ? [0, 1.2, -1.6] : [0, 0, 0]}
-    >
-      <group scale={scale * (xrActive ? 0.28 : 1)}>
+    <group ref={group} rotation={[0.12, 0, 0]} position={position}>
+      <group scale={scale * (xrMode ? 0.28 : 1)}>
         <primitive object={node} />
       </group>
     </group>
@@ -79,7 +77,7 @@ export default function WorkModel({ url }) {
   const glRef = useRef(null)
   const [near, setNear] = useState(false)
   const [xrModes, setXrModes] = useState([])
-  const [xrActive, setXrActive] = useState(false)
+  const [xrMode, setXrMode] = useState(null)
   useEffect(() => {
     if (typeof IntersectionObserver === 'undefined') { setNear(true); return }
     const observer = new IntersectionObserver(
@@ -108,19 +106,26 @@ export default function WorkModel({ url }) {
     if (!gl) return
     try {
       const session = await navigator.xr.requestSession(mode, {
-        optionalFeatures: ['local-floor'],
+        optionalFeatures: ['local-floor', 'local'],
       })
-      session.addEventListener('end', () => setXrActive(false))
-      setXrActive(true)
+      // 'local-floor' is not guaranteed (especially in AR) and three throws
+      // at session start if the requested space is missing — AR always rides
+      // the guaranteed 'local' space instead
+      gl.xr.setReferenceSpaceType(mode === 'immersive-ar' ? 'local' : 'local-floor')
+      session.addEventListener('end', () => setXrMode(null))
+      setXrMode(mode === 'immersive-ar' ? 'ar' : 'vr')
       await gl.xr.setSession(session)
     } catch {
-      setXrActive(false)
+      setXrMode(null)
     }
   }
 
+  // an active XR session must pin the canvas: entering AR hides the page,
+  // the observer fires not-intersecting, and unmounting would destroy the
+  // renderer the session is running on
   return (
     <div ref={holder} className="work-model">
-      {near && (
+      {(near || xrMode) && (
         <Boundary>
           <Suspense fallback={null}>
             <Canvas
@@ -133,7 +138,7 @@ export default function WorkModel({ url }) {
               <ambientLight intensity={0.9} />
               <directionalLight position={[4, 6, 8]} intensity={1.4} />
               <directionalLight position={[-5, -2, -6]} intensity={0.35} />
-              <WorkMesh url={url} xrActive={xrActive} />
+              <WorkMesh url={url} xrMode={xrMode} />
             </Canvas>
           </Suspense>
           {xrModes.length > 0 && (
