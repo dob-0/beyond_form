@@ -1,7 +1,6 @@
 ﻿import React, { useEffect, useState } from 'react'
 import HeroScene from './HeroScene.jsx'
 import ThemeCity from './ThemeCity.jsx'
-import ApplyForm from './ApplyForm.jsx'
 import HousesModel from './HousesModel.jsx'
 import FactHouseModel from './FactHouseModel.jsx'
 import housesMark from '../assets/gaw-houses.png'
@@ -60,10 +59,136 @@ const useScrollProgress = () => {
   return progress
 }
 
-const scrollToApply = () =>
-  document.getElementById('apply')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+const scrollToWorks = () =>
+  document.getElementById('works')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
 
-const MARQUEE_BASE_TEXT = 'Դիմել ✳ Apply now ✳ Beyond Form ✳ 03.08 — 05.08 ✳ Gyumri ✳ '
+const WORKS = [
+  {
+    artist: 'Arthur Steiner',
+    artistHy: 'Արթուր Շտայներ',
+    hy: [
+      'Այս ստեղծագործությունն ուսումնասիրում է ներկայի և անհասանելի ապագայի միջև առկա լուռ լարվածությունը՝ սյուրռեալիստական տիեզերական բախման միջոցով։ Հսկայական, մեկ թև ունեցող շինությունը, որն ի վիճակի չէ թռչելու, կանգնած է մեկուսացած, մինչ ընկնող աստղը բախվում է անմիջապես կառույցին։',
+      'Այս ապոկալիպտիկ պահը իր հետևում թողնում է դատարկության տագնապալի զգացում՝ արտահայտելով երկու ժամանակային գծերի հարկադրված բախման անհնարինությունը։',
+    ],
+    en: [
+      'This artwork explores the quiet tension between the present and an unattainable future through a surreal cosmic collision. A massive, single-winged building—incapable of taking flight—stands isolated as a falling star crashes directly into its frame.',
+      'This apocalyptic moment leaves behind a haunting sense of emptiness, capturing the quiet impossibility of two timelines forcefully colliding.',
+    ],
+  },
+  {
+    artist: 'Ani Petrosyan',
+    artistHy: 'Անի Պետրոսյան',
+    titleHy: '«Ժամանակի ճեղք»',
+    titleEn: '"The Rift of Time"',
+    hy: [
+      'Քանդակը կազմված է երկու սև տուֆե հատվածներից, որոնք խորհրդանշում են Գյումրու պատմությունն ու ամուր հիմքը։ Դրանց միջև առաջացած ճեղքը հիշեցնում է երկրաշարժի թողած հետքը։',
+      'Ճեղքի ներսում տեղադրված երկրաչափական մետաղական կառուցվածքը խորհրդանշում է վերածնունդը, նոր գաղափարներն ու քաղաքի զարգացումը՝ ցույց տալով, որ դժվարություններից հետո հնարավոր է կառուցել նոր ապագա։',
+      'Քարի և մետաղի հակադրությունը ներկայացնում է անցյալի և ապագայի կապը՝ արտահայտելով Գյումրու դիմացկունությունն ու վերածննդի ուժը։',
+    ],
+    en: [
+      "The sculpture consists of two black tuff stone blocks, symbolizing Gyumri's history and strong foundation. The rift between them represents the mark left by the earthquake.",
+      "Inside the rift, a geometric metal structure symbolizes rebirth, new ideas, and the city's ongoing development, showing that a new future can be built after hardship.",
+      "The contrast between the solidity of the stone and the lightness of the metal represents the connection between the past and the future, expressing Gyumri's resilience and the power of rebirth.",
+    ],
+  },
+  {
+    artist: 'Daria Daka Vasiuta',
+    artistHy: 'Դարիա Դակա Վասիուտա',
+    titleHy: '«AVGYR: Gyumri» — իմ անձնական առասպելը՝ տեղափոխված այստեղ',
+    titleEn: '"AVGYR: Gyumri" — my personal mythology, brought here',
+    hy: [
+      'AVGYR-ը թռչուն է, որը տարիներ շարունակ ներկա է իմ ստեղծագործություններում՝ որպես երկակիության խորհրդանիշ՝ առանց դատողության։ Այն գիտի, որ չկա օր առանց գիշերվա, լույս՝ առանց խավարի։ Այն իր մեջ կրում է երկուսն էլ՝ չընտրելով դրանցից ոչ մեկը։',
+      'Այստեղ այն իր վրա կրում է հենց Գյումրու երկակիությունը՝ Սուրբ Ամենափրկիչ եկեղեցին՝ այն տեսքով, ինչպես մնացել էր 1988 թվականի երկրաշարժից հետո, և նույն եկեղեցին այսօր՝ վերականգնված ու կրկին ամբողջական։ Անցյալն ու ներկան միավորված են մեկ թռչնի վրա՝ ճիշտ այնպես, ինչպես համագոյակցում են հենց քաղաքում։',
+      'Թռչունը հետ չի նայում։ Այն թռչում է առաջ՝ իր հետ տանելով այն, ինչ եղել է, և շարժվելով դեպի այն, ինչ դեռ գալու է։ Սա քաղաքի բացառիկ տոկունության վկայությունն է՝ նրա լույսն իր թևերի վրա առաջ տանող։',
+    ],
+    en: [
+      "AVGYR is a bird I've used in my work for years – a symbol of duality without judgment. It knows there is no day without night, no light without dark, and carries both, choosing neither.",
+      "Here, it carries the duality of Gyumri itself: the Holy Savior Church (Surb Amenaprkich) as it remained after the 1988 earthquake, and the same church today – restored, whole again. Past and present, held together on one bird, the way they coexist in the city itself.",
+      "The bird isn't looking back. It flies forward – carrying what came before, moving toward what comes next. It is an act of witnessing the city's profound resilience, carrying its light on its wings.",
+    ],
+  },
+  {
+    artist: 'Kristine Sargsyan',
+    artistHy: 'Քրիստինե Սարգսյան',
+    hy: [
+      'Ստեղծագործությունն անդրադառնում է անցողիկ պահերը պահպանելու մարդկային ձգտմանը՝ միաժամանակ գիտակցելով, որ ոչ մի արձանագրություն չի կարող ամբողջությամբ ամփոփել ապրած փորձառությունը։',
+      'Տեղադրված լինելով քաղաքի առօրյա միջավայրում՝ այն դառնում է դիտելու գործողության մի մասը՝ հրավիրելով անցորդներին խորհելու, թե ինչպես է հիշողությունը շարունակաբար ձևավորվում ժամանակի, վայրի և այն սովորական պահերի միջոցով, որոնք մենք ընտրում ենք նկատել։',
+    ],
+    en: [
+      'The work reflects the human desire to preserve passing moments while acknowledging that no recording can fully contain lived experience.',
+      "Installed within the city's everyday landscape, it becomes part of the act of observing — inviting passersby to reflect on how memory is continually shaped through time, place, and the ordinary moments we choose to notice.",
+    ],
+  },
+  { artist: 'Milena', tba: true },
+]
+
+function Works() {
+  return (
+    <section className="works" id="works">
+      <h2 data-reveal>
+        Works{' '}
+        <span className="hy" lang="hy">
+          Աշխատանքներ
+        </span>
+      </h2>
+      <p className="works-venue" data-reveal>
+        <span lang="hy">Աշխատարանի արդյունքում ստեղծված աշխատանքները ցուցադրվում են հանրային տարածքներում՝ Gyumri Art Week-ի շրջանակում։</span>
+        <br />
+        The works created during the workshop are exhibited in public spaces as part of Gyumri Art Week.
+        <br />
+        <span lang="hy">Հրապարակային ցուցադրություն</span> — Public exhibition ·{' '}
+        <a href="https://maps.app.goo.gl/18NibwM33nCDT78y9" target="_blank" rel="noreferrer">
+          188 Shahumyan St, Gyumri
+        </a>
+      </p>
+      <div className="works-list">
+        {WORKS.map((w) => (
+          <article className={`work${w.tba ? ' tba' : ''}`} key={w.artist} data-reveal>
+            <h3>
+              {w.artist}
+              {w.artistHy && (
+                <>
+                  {' '}
+                  <span className="hy" lang="hy">
+                    {w.artistHy}
+                  </span>
+                </>
+              )}
+            </h3>
+            {w.tba ? (
+              <p className="work-title">
+                <span lang="hy">Կոնցեպտը դեռ չի ներկայացվել</span> — Concept not yet submitted
+              </p>
+            ) : (
+              <>
+                {w.titleEn && (
+                  <p className="work-title">
+                    {w.titleEn}
+                    {w.titleHy && <span lang="hy"> · {w.titleHy}</span>}
+                  </p>
+                )}
+                <div className="work-text">
+                  <div lang="hy">
+                    {w.hy.map((p, i) => (
+                      <p key={i}>{p}</p>
+                    ))}
+                  </div>
+                  <div lang="en">
+                    {w.en.map((p, i) => (
+                      <p key={i}>{p}</p>
+                    ))}
+                  </div>
+                </div>
+              </>
+            )}
+          </article>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+const MARQUEE_BASE_TEXT = 'Աշխատանքներ ✳ Works ✳ Beyond Form ✳ 07.08 — 20.08 ✳ Gyumri ✳ '
 const MARQUEE_BASE_DURATION = 22 // seconds, tuned for MARQUEE_BASE_TEXT's length
 
 function Marquee({ dark, text }) {
@@ -74,7 +199,7 @@ function Marquee({ dark, text }) {
   // keep scroll speed (px/s) constant regardless of text length
   const duration = MARQUEE_BASE_DURATION * (content.length / MARQUEE_BASE_TEXT.length)
   return (
-    <a className={`marquee${dark ? ' dark' : ''}`} href="#apply" onClick={onFragmentClick} aria-label="Apply now">
+    <a className={`marquee${dark ? ' dark' : ''}`} href="#works" onClick={onFragmentClick} aria-label="Works">
       <div className="marquee-track" style={{ animationDuration: `${duration}s` }} aria-hidden="true">
         <div className="marquee-chunk">{items}</div>
         <div className="marquee-chunk">{items}</div>
@@ -83,35 +208,35 @@ function Marquee({ dark, text }) {
   )
 }
 
-function FloatingApply() {
+function FloatingWorks() {
   const [shown, setShown] = useState(false)
   useEffect(() => {
     if (typeof IntersectionObserver === 'undefined') return
     const hero = document.querySelector('.hero')
-    const apply = document.getElementById('apply')
+    const works = document.getElementById('works')
     let heroVisible = true
-    let applyVisible = false
-    const update = () => setShown(!heroVisible && !applyVisible)
+    let worksVisible = false
+    const update = () => setShown(!heroVisible && !worksVisible)
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.target === hero) heroVisible = entry.isIntersecting
-        if (entry.target === apply) applyVisible = entry.isIntersecting
+        if (entry.target === works) worksVisible = entry.isIntersecting
       })
       update()
     }, { threshold: 0.05 })
     if (hero) observer.observe(hero)
-    if (apply) observer.observe(apply)
+    if (works) observer.observe(works)
     return () => observer.disconnect()
   }, [])
   return (
     <button
       type="button"
       className={`floating-apply${shown ? ' shown' : ''}`}
-      onClick={scrollToApply}
+      onClick={scrollToWorks}
       tabIndex={shown ? 0 : -1}
       aria-hidden={!shown}
     >
-      Դիմել — Apply
+      Աշխատանքներ — Works
     </button>
   )
 }
@@ -119,11 +244,10 @@ function FloatingApply() {
 export default function App() {
   useScrollReveal()
   const progress = useScrollProgress()
-  const [formDone, setFormDone] = useState(false)
   return (
     <>
       <div className="scroll-progress" style={{ transform: `scaleX(${progress})` }} aria-hidden="true" />
-      <FloatingApply />
+      <FloatingWorks />
       <header className="hero">
         <div className="hero-canvas-wrap" aria-hidden="true">
           <HeroScene />
@@ -134,7 +258,7 @@ export default function App() {
             <img className="hero-mark" src={housesMark} alt="" aria-hidden="true" />
             Beyond Form
             <br />
-            <span className="oc-glass">Բաց կանչ — Open call</span>
+            <span className="oc-glass">Ցուցադրություն — Exhibition</span>
           </div>
           <div className="right">
             Gyumri Art Week
@@ -146,14 +270,15 @@ export default function App() {
         <div className="hero-title">
           <h1>Beyond Form</h1>
           <div className="hero-title-side">
-            <div className="dates">03.08 — 05.08</div>
-            <a className="hero-apply" href="#apply" onClick={onFragmentClick}>
-              Դիմել — Apply ↓
+            <div className="dates">07.08 — 20.08</div>
+            <a className="hero-apply" href="#works" onClick={onFragmentClick}>
+              Աշխատանքներ — Works ↓
             </a>
           </div>
         </div>
 
         <nav className="hero-nav" onClick={onFragmentClick}>
+          <a href="#works">Աշխատանքներ / Works</a>
           <a href="#about">Աշխատարան / Workshop</a>
           <a href="#theme">Թեմա / Theme</a>
           <a href="#facts">Մանրամասներ / Details</a>
@@ -162,44 +287,44 @@ export default function App() {
 
       <section className="about" id="about">
         <div className="am" lang="hy" data-reveal>
-          <p className="tag">Բաց կանչ</p>
+          <p className="tag">Աշխատարան</p>
           <p className="lead">
-            Beyond Form-ը եռօրյա ստեղծագործական աշխատարան է, որն իրականացվում է
+            Beyond Form-ը եռօրյա ստեղծագործական աշխատարան է, որն իրականացվել է
             Gyumri Art Week-ի շրջանակում՝ Ժամանակակից արվեստի ինստիտուտի,
             Հայաստանի գեղարվեստի պետական ակադեմիայի Գյումրու մասնաճյուղի և
             G.Urban Platform-ի համագործակցությամբ։
           </p>
           <p>
-            Աշխատարանը նախատեսված է երիտասարդ արվեստագետների, ուսանողների և
+            Աշխատարանը նախատեսված էր երիտասարդ արվեստագետների, ուսանողների և
             բոլոր նրանց համար, ովքեր հետաքրքրված են ժամանակակից արվեստով, նոր
             մեդիաներով, 3D մոդելավորմամբ, 3D տպագրությամբ և վիզուալ
             պրոյեկցիաներով։
           </p>
           <p>
-            Եռօրյա աշխատարանի ընթացքում մասնակիցները կծանոթանան թվային
+            Եռօրյա աշխատարանի ընթացքում մասնակիցները ծանոթացան թվային
             արտադրության և վիզուալ տեխնոլոգիաների հնարավորություններին,
-            կզարգացնեն իրենց գաղափարները մենթորների աջակցությամբ և կստեղծեն
+            զարգացրին իրենց գաղափարները մենթորների աջակցությամբ և ստեղծեցին
             արվեստի գործեր՝ հիմնված փառատոնի այս տարվա թեմայի վրա։
           </p>
         </div>
         <div className="en" lang="en" data-reveal>
-          <p className="tag">Open call</p>
+          <p className="tag">Workshop</p>
           <p className="lead">
-            Beyond Form is a three-day creative workshop, implemented within
+            Beyond Form was a three-day creative workshop, implemented within
             the framework of Gyumri Art Week, in cooperation with the Institute
             of Contemporary Art, the Gyumri Branch of the State Academy of
             Fine Arts of Armenia, and G.Urban Platform.
           </p>
           <p>
-            The workshop is intended for young artists, students and all those
+            The workshop was intended for young artists, students and all those
             who are interested in contemporary art, new media, 3D modeling, 3D
             printing and visual projections.
           </p>
           <p>
-            During the three-day workshop, participants will get acquainted
+            During the three-day workshop, participants got acquainted
             with the possibilities of digital production and visual
-            technologies, develop their ideas with the support of mentors and
-            create works of art based on this year's theme of the festival.
+            technologies, developed their ideas with the support of mentors and
+            created works of art based on this year's theme of the festival.
           </p>
         </div>
       </section>
@@ -290,26 +415,8 @@ export default function App() {
         </article>
       </section>
 
-      <div id="apply">
-      <Marquee dark text="Deadline 25.07 ✳ " />
-
-      <section className="apply">
-        {!formDone && (
-          <>
-            <p lang="hy">
-              Աշխատարանների արդյունքում ստեղծված աշխատանքները ցուցադրվելու են հանրային տարածքներում՝ Gyumri Art Week-ի շրջանակում։
-              <br />
-              <span lang="en">
-                The works created as a result of the workshops will be exhibited in public spaces as part of Gyumri Art Week.
-              </span>
-            </p>
-            <h2 className="apply-title">Դիմել — Apply</h2>
-          </>
-        )}
-        <ApplyForm onDone={() => setFormDone(true)} />
-        <p className="dates">Beyond Form · 03.08 — 05.08 · Gyumri</p>
-      </section>
-      </div>
+      <Marquee dark text="Աշխատանքներ ✳ Works ✳ Gyumri Art Week ✳ " />
+      <Works />
 
       <footer>
         <div className="houses-3d">
@@ -328,8 +435,8 @@ export default function App() {
           <img src={wccLogo} alt="WCC" />
         </div>
         <div className="fine">
-          <span>Beyond Form — Open Call</span>
-          <span>03.08 — 05.08</span>
+          <span>Beyond Form — Exhibition</span>
+          <span>07.08 — 20.08</span>
         </div>
       </footer>
     </>
