@@ -78,9 +78,10 @@ const WORKS = [
     ],
   },
   {
+    // not on the part-1 roster in the bydf doc — held back until a later part
     artist: 'Ani Petrosyan',
     artistHy: 'Անի Պետրոսյան',
-    model: 'work-ani.glb',
+    held: true,
     titleHy: '«Ժամանակի ճեղք»',
     titleEn: '"The Rift of Time"',
     hy: [
@@ -124,9 +125,23 @@ const WORKS = [
       "Installed within the city's everyday landscape, it becomes part of the act of observing — inviting passersby to reflect on how memory is continually shaped through time, place, and the ordinary moments we choose to notice.",
     ],
   },
-  // mila-1..4.glb wait in references/works-staged/ with the rest of the
+  {
+    artist: 'Milena Mkrtichyan',
+    artistHy: 'Միլենա Մկրտիչյան',
+    model: 'work-milena.glb',
+    titleHy: '«Դոմիկ»',
+    titleEn: '"Domik"',
+    hy: [
+      'Դոմիկները, որոնք կառուցվել էին երկրաշարժից հետո, ժամանակի ընթացքում դարձան Գյումրիի քաղաքային միջավայրի անբաժան մասը։ Դրանք առաջին հայացքից գրավում են իրենց գունային բազմազանությամբ, ինքնաբուխ կառուցվածքով և յուրահատուկ մանրամասներով, սակայն այդ տեսքի հետևում թաքնված են ողբերգությունն ու մարդկային ճակատագրերը։',
+      'Այս աշխատանքը ուսումնասիրում է, թե ինչպես է ժամանակը փոխում քաղաքի և տարածքի ընկալումը․ այն, ինչ ստեղծվել էր որպես ժամանակավոր լուծում, դարձավ քաղաքի հիշողության և ինքնության մի մասը։',
+    ],
+    en: [
+      "The temporary houses built after the earthquake have, over time, become an inseparable part of Gyumri's urban landscape. At first glance, they attract attention with their vivid colors, improvised structures, and distinctive details. Yet behind this visual appearance lies the memory of tragedy and the lives shaped by its aftermath.",
+      "This work explores how time transforms the perception of the city, turning what was once meant to be temporary into a lasting element of Gyumri's collective memory and identity.",
+    ],
+  },
+  // ani.glb + mila-2..4.glb wait in references/works-staged/ with the
   // conceptless models (alla, ine, levon, shushan, telik-ppp, vova)
-  { artist: 'Milena', tba: true },
 ]
 
 function Works() {
@@ -152,9 +167,9 @@ function Works() {
         </a>
       </p>
       <div className="works-list">
-        {/* entries missing a concept or info stay in WORKS but are held back
-            from the public list until they are filled in */}
-        {WORKS.filter((w) => !w.tba).map((w, i) => (
+        {/* entries missing a concept/info (tba) or not on the current doc
+            roster (held) stay in WORKS but out of the public list */}
+        {WORKS.filter((w) => !w.tba && !w.held).map((w, i) => (
           <article className="work" key={w.artist} data-reveal>
             <h3>
               <span className="work-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
