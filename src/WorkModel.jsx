@@ -31,7 +31,20 @@ function useNormalizedWork(url) {
     const center = box.getCenter(new THREE.Vector3())
     node.position.sub(center)
     const size = box.getSize(new THREE.Vector3())
-    return { node, scale: 4.6 / (size.length() || 1) }
+    // A piece that lies flat — Levon's plate — is nearly invisible at the
+    // card's default 7° tilt: it spins about its own normal, so it stays a
+    // sliver the whole way round. Look down on those instead. Flat is
+    // measured against the footprint, not the diagonal, so a standing panel
+    // (thin in Z, tall in Y) keeps the default view.
+    const footprint = Math.max(size.x, size.z)
+    const flat = footprint > 0 && size.y < 0.25 * footprint
+    return {
+      node,
+      // flat pieces are framed by their footprint; the diagonal would leave
+      // them small once tilted face-on
+      scale: (flat ? 3.9 / (footprint || 1) : 4.6 / (size.length() || 1)),
+      tilt: flat ? 1.15 : 0.12,
+    }
   }, [scene])
 }
 
@@ -39,7 +52,7 @@ function useNormalizedWork(url) {
 // device has no hit-test to place with
 function SpinningWork({ url, xrMode }) {
   const group = useRef()
-  const { node, scale } = useNormalizedWork(url)
+  const { node, scale, tilt } = useNormalizedWork(url)
 
   useFrame(({ clock }) => {
     if (REDUCE_MOTION || !group.current) return
@@ -47,8 +60,9 @@ function SpinningWork({ url, xrMode }) {
   })
 
   const position = xrMode === 'ar' ? [0, -0.15, -1.3] : xrMode === 'vr' ? [0, 1.2, -1.6] : [0, 0, 0]
+  // in XR the piece stands in the room, so it keeps its own orientation
   return (
-    <group ref={group} rotation={[0.12, 0, 0]} position={position}>
+    <group ref={group} rotation={[xrMode ? 0.12 : tilt, 0, 0]} position={position}>
       <group scale={scale * (xrMode ? XR_SCALE : 1)}>
         <primitive object={node} />
       </group>
