@@ -188,8 +188,10 @@ const WORKS = [
     artistHy: 'Շահանե Հարությունյան',
     part: 2,
     model: 'work-shahane.glb',
-    // the bydp2 doc carries no Armenian text for this one yet
-    hy: [],
+    hy: [
+      'Հին հեռուստացույցը կանգնած է որպես հուշարձան, իսկ նրա ալեհավաքները վերածվել են դեպի երկինք ձգվող արմավենիների։ Քաղաքը պարուրված է էկրանով․ նրա անցյալը հիշվում է, ներկան՝ ընկալվում, իսկ ապագան՝ պատկերացվում հեռուստատեսության, համացանցի և պատկերների անվերջ հոսքի միջոցով։',
+      'Հիշողության և առասպելի միջև էկրանը դառնում է և՛ արխիվ, և՛ պատմող՝ ձևավորելով այն, ինչ մենք գիտենք և ինչին հավատում ենք։ Քաղաքը գոյություն ունի ոչ միայն մեր ապրած փորձառությունների, այլև այն ամենի միջոցով, ինչ մեզ փոխանցվում է էկրաններից։',
+    ],
     en: [
       'An old television stands as a monument, its antenna transformed into palm trees reaching skyward. The city is wrapped in the screen—its past remembered, its present understood, and its future imagined through television, the internet, and the endless flow of images.',
       'Somewhere between memory and myth, the screen becomes both archive and storyteller, shaping what we know and what we believe. The city exists not only through what we experience, but through what is transmitted to us.',
