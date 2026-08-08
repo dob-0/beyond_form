@@ -139,8 +139,69 @@ const WORKS = [
       "This work explores how time transforms the perception of the city, turning what was once meant to be temporary into a lasting element of Gyumri's collective memory and identity.",
     ],
   },
-  // ani.glb + mila-2..4.glb wait in references/works-staged/ with the
-  // conceptless models (alla, ine, levon, shushan, telik-ppp, vova)
+  {
+    artist: 'Levon Hakobyan',
+    artistHy: 'Լևոն Հակոբյան',
+    part: 2,
+    model: 'work-levon.glb',
+    hy: [
+      'Ապագա՞ն… Թերևս դա կատարյալ հարմարավետության այն վերջնակետն է, որտեղ շարժվելու անհրաժեշտությունն ուղղակի անհետանում է։ Մի աշխարհ, որտեղ ամեն մի զգայարան հագեցած է անսահման հաճույքով՝ այնքան բացարձակ ու անվերապահ, որ աստիճանաբար անզգայացնում է հոգին։',
+      'Երբ այլևս ոչ մի ցավ, ոչ մի ճիգ ու ոչ մի ձգտում չկա, իսկ կատարյալ հանգիստը վերածվում է բացարձակ անզգայության։ Եթե սա է մարդկության վերջնական երազանքը, ապա գուցե հենց սա՞ է ապագան։',
+    ],
+    en: [
+      'The future?… Perhaps it is the ultimate state of perfect comfort, where the very need to move simply disappears. A world in which every sense is saturated with endless pleasure—so absolute and unconditional that it gradually numbs the soul.',
+      "Where there is no longer any pain, effort, or striving, and perfect rest turns into complete insensibility. If this is humanity's ultimate dream, then perhaps this is the future.",
+    ],
+  },
+  {
+    artist: 'Ani Hovhannisyan',
+    artistHy: 'Անի Հովհաննիսյան',
+    part: 2,
+    model: 'work-ani-hovhannisyan.glb',
+    // "Trices" is the spelling in the bydp2 doc — left as the artist wrote it
+    titleEn: '"Trices of time"',
+    hy: [
+      'Գյումրիում շատ են խորհրդային շրջանի հուշարձանները. դրանք այսօր հայտնվել են կիսաավեր, մաշված կամ շրջակա միջավայրին միաձուլված կարգավիճակում։ Այդ տրանսֆորմացիայի շնորհիվ դրանք վերածվում են ոչ միայն անցյալի վկայությունների, այլև ժամանակի անցողիկության շուրջ խորհելու յուրօրինակ առիթի։',
+      'Ինձ հետաքրքրում է այն սահմանագիծը, երբ հուշարձանը դադարում է լինել լոկ պատմական օբյեկտ և սկսում է գործել որպես կենդանի հիշողության կրող։',
+      'Պահպանելով անցյալի շերտերը՝ այս հուշարձանները միաժամանակ արտացոլում են քաղաքի մթնոլորտում սառած ժամանակի ներկայությունը։ Ներկայացված ձեռքը սոցռեալիստական հուշարձանի փլուզված հատվածներից է, որն այսօր անջատված է իր սկզբնական կոմպոզիցիայից։ Առանձնացված լինելով ամբողջից՝ այն դադարում է լինել պարզապես քանդակային դետալ և վերածվում է ինքնուրույն կերպարի՝ մարմնավորելով ոչ միայն նյութական քայքայումը, այլև հիշողության շարունակականությունը։',
+    ],
+    en: [
+      'Gyumri is home to numerous Soviet-era monuments that today exist in a state of partial ruin, erosion, or gradual assimilation into their surrounding environment. Through this transformation, they become more than mere remnants of the past; they invite reflection on the passage of time and the changing nature of collective memory.',
+      'I am interested in the threshold at which a monument ceases to function solely as a historical object and begins to exist as a living vessel of memory. While preserving the physical traces of the past, these monuments simultaneously embody the presence of time suspended within the atmosphere of the city.',
+      'The hand presented here is a fragment of a Socialist Realist monument that has become detached from its original composition following its deterioration. Separated from the whole, it no longer exists merely as a sculptural detail but emerges as an autonomous form, embodying not only material decay but also the continuity of memory.',
+    ],
+  },
+  {
+    artist: 'Vova Simonyan',
+    artistHy: 'Վովա Սիմոնյան',
+    part: 2,
+    model: 'work-vova.glb',
+    hy: [
+      'Այս ինստալյացիան ուսումնասիրում է ժամանակի, երաժշտության և քաղաքի փոխհարաբերությունը։ Ռոքը դառնում է մի ուժ, որն ուղեկցում է քաղաքին փոփոխությունների և դժվարությունների միջով՝ սերունդների ընթացքում ձևավորելով նրա ինքնությունը։ Աշխատանքն արտացոլում է, թե ինչպես է երաժշտությունը դառնում քաղաքի հիշողության մի մասը՝ կապելով անցյալը, ներկան և ապագան։',
+    ],
+    en: [
+      "This installation explores the relationship between time, music, and the city. Rock becomes a force that carries the city through moments of change and difficulty, shaping its identity across generations. The work reflects how music becomes part of a city's memory — connecting its past, present, and future.",
+    ],
+  },
+  {
+    artist: 'Shahane Harutyunyan',
+    artistHy: 'Շահանե Հարությունյան',
+    part: 2,
+    model: 'work-shahane.glb',
+    // the bydp2 doc carries no Armenian text for this one yet
+    hy: [],
+    en: [
+      'An old television stands as a monument, its antenna transformed into palm trees reaching skyward. The city is wrapped in the screen—its past remembered, its present understood, and its future imagined through television, the internet, and the endless flow of images.',
+      'Somewhere between memory and myth, the screen becomes both archive and storyteller, shaping what we know and what we believe. The city exists not only through what we experience, but through what is transmitted to us.',
+    ],
+  },
+  // mila-2..4.glb wait in references/works-staged/ with the conceptless
+  // models (alla, ine, shushan); ani.glb is Ani Petrosyan's, held above
+]
+
+const PARTS = [
+  { n: 1, hy: 'Մաս 1', en: 'Part 1' },
+  { n: 2, hy: 'Մաս 2', en: 'Part 2' },
 ]
 
 function Works() {
@@ -152,48 +213,62 @@ function Works() {
           Աշխատանքներ
         </span>
       </h2>
-      <p className="works-part" data-reveal>
-        <span lang="hy">Մաս 1</span> — Part 1
-      </p>
-      <div className="works-list">
-        {/* entries missing a concept/info (tba) or not on the current doc
-            roster (held) stay in WORKS but out of the public list */}
-        {WORKS.filter((w) => !w.tba && !w.held).map((w, i) => (
-          <article className="work" key={w.artist} data-reveal>
-            <h3>
-              <span className="work-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-              {w.artist}
-              {w.artistHy && (
-                <>
-                  {' '}
-                  <span className="hy" lang="hy">
-                    {w.artistHy}
-                  </span>
-                </>
-              )}
-            </h3>
-            {w.model && <WorkModel url={w.model} />}
-            {w.titleEn && (
-              <p className="work-title">
-                {w.titleEn}
-                {w.titleHy && <span lang="hy"> · {w.titleHy}</span>}
+      {/* entries missing a concept/info (tba) or not on the current doc
+          roster (held) stay in WORKS but out of the public list; numbering
+          runs unbroken across the parts */}
+      {(() => {
+        const shown = WORKS.filter((w) => !w.tba && !w.held).map((w, i) => ({ ...w, num: i + 1 }))
+        return PARTS.map((part) => {
+          const items = shown.filter((w) => (w.part || 1) === part.n)
+          if (!items.length) return null
+          return (
+            <React.Fragment key={part.n}>
+              <p className="works-part" data-reveal>
+                <span lang="hy">{part.hy}</span> — {part.en}
               </p>
-            )}
-            <div className="work-text">
-              <div lang="hy">
-                {w.hy.map((p, i) => (
-                  <p key={i}>{p}</p>
+              <div className="works-list">
+                {items.map((w) => (
+                  <article className="work" key={w.artist} data-reveal>
+                    <h3>
+                      <span className="work-num" aria-hidden="true">{String(w.num).padStart(2, '0')}</span>
+                      {w.artist}
+                      {w.artistHy && (
+                        <>
+                          {' '}
+                          <span className="hy" lang="hy">
+                            {w.artistHy}
+                          </span>
+                        </>
+                      )}
+                    </h3>
+                    {w.model && <WorkModel url={w.model} />}
+                    {w.titleEn && (
+                      <p className="work-title">
+                        {w.titleEn}
+                        {w.titleHy && <span lang="hy"> · {w.titleHy}</span>}
+                      </p>
+                    )}
+                    <div className={`work-text${w.hy.length ? '' : ' single'}`}>
+                      {w.hy.length > 0 && (
+                        <div lang="hy">
+                          {w.hy.map((p, i) => (
+                            <p key={i}>{p}</p>
+                          ))}
+                        </div>
+                      )}
+                      <div lang="en">
+                        {w.en.map((p, i) => (
+                          <p key={i}>{p}</p>
+                        ))}
+                      </div>
+                    </div>
+                  </article>
                 ))}
               </div>
-              <div lang="en">
-                {w.en.map((p, i) => (
-                  <p key={i}>{p}</p>
-                ))}
-              </div>
-            </div>
-          </article>
-        ))}
-      </div>
+            </React.Fragment>
+          )
+        })
+      })()}
     </section>
   )
 }

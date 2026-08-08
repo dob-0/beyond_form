@@ -452,6 +452,8 @@ img { max-width: 100%; display: block; }
   text-transform: uppercase;
   letter-spacing: .12em;
 }
+/* the second and later part chips sit under the previous part's last row */
+.works-list + .works-part { margin-top: 3.5rem; }
 .works-venue {
   font-size: .8rem;
   text-transform: uppercase;
@@ -508,6 +510,9 @@ img { max-width: 100%; display: block; }
 .work-title { grid-column: 2; grid-row: 1; margin-top: .5rem; font-style: italic; opacity: .7; }
 .work-title [lang="hy"] { font-style: normal; }
 .work-text { grid-column: 2; grid-row: 2; display: grid; grid-template-columns: 1fr 1fr; gap: var(--pad); }
+/* a work the doc gives in one language only fills the row instead of
+   leaving a column that reads as a missing translation */
+.work-text.single { grid-template-columns: 1fr; }
 .work-text p { margin-bottom: 1em; max-width: 34em; }
 
 /* ---------- footer ---------- */
