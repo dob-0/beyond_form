@@ -242,10 +242,33 @@ const WORKS = [
   // mila-2..4.glb wait in references/works-staged/ — Milena's other three
 ]
 
+// each part stands in a different public space — addresses as Emilya gave
+// them, resolved from the map links she sent
 const PARTS = [
-  { n: 1, hy: 'Մաս 1', en: 'Part 1' },
-  { n: 2, hy: 'Մաս 2', en: 'Part 2' },
-  { n: 3, hy: 'Մաս 3', en: 'Part 3' },
+  {
+    n: 1,
+    hy: 'Մաս 1',
+    en: 'Part 1',
+    place: '188 Shahumyan St',
+    placeHy: 'Շահումյան 188',
+    map: 'https://maps.app.goo.gl/yqFSGZphZsHEptRS7',
+  },
+  {
+    n: 2,
+    hy: 'Մաս 2',
+    en: 'Part 2',
+    place: '8 Tigran Mets Ave',
+    placeHy: 'Տիգրան Մեծի պող. 8',
+    map: 'https://maps.app.goo.gl/SjKXzWFAAdqWqjZ96',
+  },
+  {
+    n: 3,
+    hy: 'Մաս 3',
+    en: 'Part 3',
+    place: '69 Gorki St',
+    placeHy: 'Գորկու 69',
+    map: 'https://maps.app.goo.gl/aHtLuXbRbfTMgxb79',
+  },
 ]
 
 function Works() {
@@ -270,6 +293,13 @@ function Works() {
               <p className="works-part" data-reveal>
                 <span lang="hy">{part.hy}</span> — {part.en}
               </p>
+              {part.place && (
+                <p className="works-venue" data-reveal>
+                  <a href={part.map} target="_blank" rel="noopener noreferrer">
+                    <span lang="hy">{part.placeHy}</span> — {part.place}
+                  </a>
+                </p>
+              )}
               <div className="works-list">
                 {items.map((w) => (
                   <article className="work" key={w.artist} data-reveal>
