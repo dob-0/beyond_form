@@ -77,24 +77,6 @@ const WORKS = [
     ],
   },
   {
-    // not on the part-1 roster in the bydf doc — held back until a later part
-    artist: 'Ani Petrosyan',
-    artistHy: 'Անի Պետրոսյան',
-    held: true,
-    titleHy: '«Ժամանակի ճեղք»',
-    titleEn: '"The Rift of Time"',
-    hy: [
-      'Քանդակը կազմված է երկու սև տուֆե հատվածներից, որոնք խորհրդանշում են Գյումրու պատմությունն ու ամուր հիմքը։ Դրանց միջև առաջացած ճեղքը հիշեցնում է երկրաշարժի թողած հետքը։',
-      'Ճեղքի ներսում տեղադրված երկրաչափական մետաղական կառուցվածքը խորհրդանշում է վերածնունդը, նոր գաղափարներն ու քաղաքի զարգացումը՝ ցույց տալով, որ դժվարություններից հետո հնարավոր է կառուցել նոր ապագա։',
-      'Քարի և մետաղի հակադրությունը ներկայացնում է անցյալի և ապագայի կապը՝ արտահայտելով Գյումրու դիմացկունությունն ու վերածննդի ուժը։',
-    ],
-    en: [
-      "The sculpture consists of two black tuff stone blocks, symbolizing Gyumri's history and strong foundation. The rift between them represents the mark left by the earthquake.",
-      "Inside the rift, a geometric metal structure symbolizes rebirth, new ideas, and the city's ongoing development, showing that a new future can be built after hardship.",
-      "The contrast between the solidity of the stone and the lightness of the metal represents the connection between the past and the future, expressing Gyumri's resilience and the power of rebirth.",
-    ],
-  },
-  {
     artist: 'Daria Daka Vasiuta',
     artistHy: 'Դարիա Դակա Վասիուտա',
     model: 'work-daria.glb',
@@ -197,13 +179,73 @@ const WORKS = [
       'Somewhere between memory and myth, the screen becomes both archive and storyteller, shaping what we know and what we believe. The city exists not only through what we experience, but through what is transmitted to us.',
     ],
   },
-  // mila-2..4.glb wait in references/works-staged/ with the conceptless
-  // models (alla, ine, shushan); ani.glb is Ani Petrosyan's, held above
+  {
+    artist: 'Alla Virabyan',
+    artistHy: 'Ալլա Վիրաբյան',
+    part: 3,
+    model: 'work-alla.glb',
+    hy: [
+      'Այս քանդակը արտացոլում է անհատի, քաղաքի և ժամանակի միջով փոխանցվող ավանդույթների միջև պայքարը։ Կարծր ձևը դառնում է ժառանգված նորմերի խորհրդանիշ, որոնք ձևավորում են թե՛ մարդկանց, թե՛ նրանց ապրած միջավայրը։ Այն ճեղքելը ներկայացնում է նոր սերնդի՝ քաղաքում իր տարածքը վերագտնելու ձգտումը՝ մարտահրավեր նետելով անցյալին և ստեղծելով ինքնության, ազատության ու ինքնարտահայտման նոր հնարավորություններ։',
+    ],
+    en: [
+      'This sculpture reflects the struggle between the individual, the city, and the traditions carried through time. The rigid form becomes a symbol of inherited norms that shape both people and the places they inhabit. Breaking through it represents a new generation reclaiming its space within the city—challenging the past while creating new possibilities for identity, freedom, and self-expression.',
+    ],
+  },
+  {
+    artist: 'Ine Sergeyan',
+    artistHy: 'Ինե Սերգեյան',
+    part: 3,
+    model: 'work-ine.glb',
+    titleHy: '«Պալիմպսեստ․ քաղաքի վերամարմնավորումը»',
+    titleEn: '"Palimpsest: The Reincarnation of the City"',
+    hy: [
+      'Նախագիծը դիտարկում է քաղաքը որպես պալիմպսեստ՝ ժամանակի ընթացքում անընդհատ վերագրվող, բայց երբեք ամբողջությամբ չջնջվող հիշողության մարմին։ Իմ ստեղծագործական պրակտիկայում վերամարմնավորումը հանդես է գալիս որպես գոյության շարունակականության փիլիսոփայական մոդել, և այս աշխատանքում այդ գաղափարը տեղափոխվում է քաղաքային տարածք։',
+      'Ռելիեֆային քանդակը միավորում է Գյումրու ճարտարապետական հիշողությունը, լանդշաֆտը և խորհրդանշական պատկերները՝ ստեղծելով ժամանակի տարբեր շերտերի համակեցություն։ Աչքը ներկայացվում է որպես քաղաքի հավաքական հիշողության խորհրդանիշ, իսկ ճարտարապետական և հնագիտական ձևերը՝ որպես նրա նախորդ ու հաջորդ գոյությունների հետքեր։ Աշխատանքը առաջարկում է քաղաքը ընկալել ոչ թե որպես անփոփոխ տարածք, այլ որպես կենդանի օրգանիզմ, որը մշտապես փոխակերպվում, վերաիմաստավորվում և վերամարմնավորվում է՝ պահպանելով իր հիշողության շերտերը։',
+    ],
+    en: [
+      'The project approaches the city as a palimpsest—a body of memory that is continuously rewritten over time, yet never completely erased. Within my artistic practice, reincarnation functions as a philosophical model of continuity, and in this work, that concept is transposed onto the urban landscape.',
+      "The relief sculpture brings together Gyumri's architectural memory, its landscape, and symbolic imagery, creating a coexistence of multiple temporal layers. The eye serves as a symbol of the city's collective memory, while the architectural and archaeological forms embody traces of its previous and future existences. Rather than presenting the city as a fixed entity, the work invites viewers to perceive it as a living organism—one that continually transforms, reinterprets, and reincarnates while preserving the layered memory of its past.",
+    ],
+  },
+  {
+    artist: 'Ani Petrosyan',
+    artistHy: 'Անի Պետրոսյան',
+    part: 3,
+    model: 'work-ani-petrosyan.glb',
+    titleHy: '«Ժամանակի ճեղք»',
+    titleEn: '"The Rift of Time"',
+    hy: [
+      'Քանդակը կազմված է երկու սև տուֆե հատվածներից, որոնք խորհրդանշում են Գյումրու պատմությունն ու ամուր հիմքը։ Դրանց միջև առաջացած ճեղքը հիշեցնում է երկրաշարժի թողած հետքը։',
+      'Ճեղքի ներսում տեղադրված երկրաչափական մետաղական կառուցվածքը խորհրդանշում է վերածնունդը, նոր գաղափարներն ու քաղաքի զարգացումը՝ ցույց տալով, որ դժվարություններից հետո հնարավոր է կառուցել նոր ապագա։',
+      'Քարի և մետաղի հակադրությունը ներկայացնում է անցյալի և ապագայի կապը՝ արտահայտելով Գյումրու դիմացկունությունն ու վերածննդի ուժը։',
+    ],
+    en: [
+      "The sculpture consists of two black tuff stone blocks, symbolizing Gyumri's history and strong foundation. The rift between them represents the mark left by the earthquake.",
+      "Inside the rift, a geometric metal structure symbolizes rebirth, new ideas, and the city's ongoing development, showing that a new future can be built after hardship.",
+      "The contrast between the solidity of the stone and the lightness of the metal represents the connection between the past and the future, expressing Gyumri's resilience and the power of rebirth.",
+    ],
+  },
+  {
+    artist: 'Shushan Vardanyan',
+    artistHy: 'Շուշան Վարդանյան',
+    part: 3,
+    model: 'work-shushan.glb',
+    hy: [
+      'Քաղաքը հիշողություն է՝ մարդկանց, կյանքի և քարի։ Ժամանակը փոխում է նրա դեմքը, և հին դիմագիծը հաճախ անհետանում է նոր ճարտարապետության շերտերի տակ։ Սակայն նույնիսկ այդ փոփոխությունների մեջ քաղաքը շարունակում է պահպանել իր հիշողությունը՝ հնի և նորի մշտական երկխոսության միջոցով։',
+      'Իմ եռաչափ քանդակում ճարտարապետական շերտերը, լարերն ու անավարտ կառուցվածքները դառնում են ժամանակի և փոփոխության փոխաբերություններ՝ արտահայտելով քաղաքի շարունակական վերափոխումը։ Յուրաքանչյուր նոր շերտ ծածկում է նախորդը, բայց չի ջնջում այն. քարը շարունակում է կրել իր հիշողությունը։',
+    ],
+    en: [
+      'The city is a memory — of people, life, and stone. Time changes its face, and its old character often disappears beneath layers of new architecture. Yet, even amid these transformations, the city continues to preserve its memory through a constant dialogue between the old and the new.',
+      "In my three-dimensional sculpture, architectural layers, wires, and unfinished structures become metaphors for time and change, reflecting the city's continuous transformation. Each new layer covers the one before it, but does not erase it; the stone continues to carry its memory.",
+    ],
+  },
+  // mila-2..4.glb wait in references/works-staged/ — Milena's other three
 ]
 
 const PARTS = [
   { n: 1, hy: 'Մաս 1', en: 'Part 1' },
   { n: 2, hy: 'Մաս 2', en: 'Part 2' },
+  { n: 3, hy: 'Մաս 3', en: 'Part 3' },
 ]
 
 function Works() {
