@@ -3,7 +3,7 @@
   "spaceId": "beyond_form",
   "label": "Beyond Form",
   "isPublic": true,
-  "minEngine": 6,
+  "minEngine": 7,
   "note": "Gyumri Art Week open call. One page, built by Vite into dist/ and pushed as the space's code presentation.",
   "tiers": {
     "prod": {
@@ -11,7 +11,7 @@
       "tokenEnv": "PROD_API_TOKEN"
     },
     "staging": {
-      "url": "https://staging.di-studio.xyz/serverXR",
+      "url": "https://dev.diiii.xyz/serverXR",
       "tokenEnv": "LIVE_API_TOKEN"
     },
     "local": {

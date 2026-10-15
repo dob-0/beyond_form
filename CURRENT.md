@@ -7,8 +7,8 @@
 - 14 STLs from `~/Downloads/bfs.zip` (65–124MB each) crushed via Blender decimate 15k tris + gltf-transform quantize → ~800KB GLBs: 4 live in `public/work-*.glb`, 10 staged in `references/works-staged/`.
 - `WorkModel.jsx`: viewport-gated canvases (6-context budget), dependency-free WebXR — AR hit-test **tap-to-place multi-copies, tap a copy to remove**; canvas pinned through sessions (unmount mid-session was the mobile AR crash); AR rides `local` space; chips only render where `navigator.xr` says supported (no iOS).
 - Removed on request: works-venue blurb, Who/What/Where facts section (+ dead FactHouseModel wiring/CSS); exhibition-first order hero → Works → workshop info.
-- Everything live on staging AND prod (`sync-space.mjs`, both tiers); repo main == `worktree-bydf-exhibition`; every surface screenshot-verified at DPR 2–3, including staging/prod themselves.
-- di.iiii side: published-page loader replaced with canonical LoadingScreen + `lazyWithReload` stale-chunk fix, promoted with full dev→main merge (1797 tests green, pdfjs-dist bumped past a fresh audit-gate advisory); staging deployed & verified, **prod deploy waits on the human approval gate**.
+- Everything live on dev AND prod (`sync-space.mjs`, both tiers); repo main == `worktree-bydf-exhibition`; every surface screenshot-verified at DPR 2–3, including dev/prod themselves.
+- di.iiii side: published-page loader replaced with canonical LoadingScreen + `lazyWithReload` stale-chunk fix, promoted with full dev→main merge (1797 tests green, pdfjs-dist bumped past a fresh audit-gate advisory); dev deployed & verified, **prod deploy waits on the human approval gate**.
 
 ## Open
 
@@ -21,7 +21,7 @@
 ## Previous session (2026-07-10, evening)
 
 - Merged Suzi's fork (`ginsyuz/beyond_form`, commit `f20a2f9`, fast-forward): academy name corrected in hy+en ("Gyumri Branch of the State Academy of Fine Arts of Armenia"), scattered OPEN CALL GYUMRI hero letters removed, `.af-choices-required` scoped to `input[type="text"]` (mobile overflow fix).
-- Synced to staging and prod via `scripts/sync-space.mjs`; both verified serving the new content. Prod open-call applications confirmed intact (10).
+- Synced to dev and prod via `scripts/sync-space.mjs`; both verified serving the new content. Prod open-call applications confirmed intact (10).
 - Git clean at `f20a2f9`, pushed to `dob-0/beyond_form` main.
 
 ## Previous session (2026-07-10)
@@ -30,7 +30,7 @@
 - Mobile fixes shipped to prod (**https://di-studio.xyz/beyond_form**, first prod deploy — provisioned space `beyond-form`): hero horizontal-overflow guard (`html/body overflow-x:hidden` — killed the right-edge paper strip), centred/normalised footer partner-logo band, mobile dpr cap, restored "City and Time" scroll-assembly on mobile as a dimmed backdrop.
 - ApplyForm Yes/No radios: replaced native `accent-color:paper` (invisible-when-selected on dark) with a custom target that fills paper when checked.
 - **Lesson (do not repeat):** off-screen canvas pausing via IntersectionObserver (`frameloop:demand`) breaks inside di.iiii's sandboxed srcdoc iframe — below-fold models never render. Kept all canvases `frameloop:always`; `src/mobile.js` now only exports `IS_MOBILE`.
-- Staging and prod in parity; git clean at `f0c1556`.
+- Dev and prod in parity; git clean at `f0c1556`.
 
 ## Previous session (2026-07-09, continued)
 
@@ -42,14 +42,14 @@
 
 ## Earlier today
 
-- Project created from Drive folder → B/W brutalist R3F landing, live at https://staging.di-studio.xyz/beyond_form; in-design bilingual apply form dual-writing to organizers' Google Form (canonical) + serverXR; `/admin → Open Call` review board (statuses, notes, filters, CSV); user verified the full pipeline end-to-end on staging; srcdoc `#anchor` navigation bug fixed page-side and platform-side.
+- Project created from Drive folder → B/W brutalist R3F landing, live at https://dev.diiii.xyz/beyond_form; in-design bilingual apply form dual-writing to organizers' Google Form (canonical) + serverXR; `/admin → Open Call` review board (statuses, notes, filters, CSV); user verified the full pipeline end-to-end on dev; srcdoc `#anchor` navigation bug fixed page-side and platform-side.
 
 ## Open
 
 - [ ] Academy of Fine Arts (Gyumri) footer logo is a light-gray asset — reads faint on the paper footer; needs a darker version or leave as brand intends.
 - [ ] Footer 3D village showed the static fallback (not the rotating model) on user's phone — likely WebGL context limit with several canvases on the page; revisit if it matters.
-- [ ] Promote di.iiii `dev → main` for production (di.iiii CURRENT: one manual OAuth click-through on staging first).
+- [ ] Promote di.iiii `dev → main` for production (di.iiii CURRENT: one manual OAuth click-through on dev first).
 - [ ] Organizer content still missing: application deadline, mentor names, day-by-day program.
 - [ ] Stage 3 (optional): applicant confirmation/decision emails — needs SMTP/provider decision.
 - [ ] Post-workshop: created works become di.iiii spaces linked from this page (exhibition gallery).
-- [ ] Housekeeping: declined "TEST — deploy probe" row sits in the staging board; local dev DB has a "probe" row.
+- [ ] Housekeeping: declined "TEST — deploy probe" row sits in the dev board; local dev DB has a "probe" row.
