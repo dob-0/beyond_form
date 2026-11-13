@@ -6,7 +6,8 @@
   "mode": "code",
   "entry": "dist/index.html",
   "include": [],
-  "assets": ["public/*.glb"],
-  "publish": true,
-  "live": "https://di-studio.xyz/serverXR"
+  "assets": [
+    "public/*.glb"
+  ],
+  "publish": true
 }

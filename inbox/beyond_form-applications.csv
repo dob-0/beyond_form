@@ -1,0 +1,3 @@
+"id","created","status","name","email","phone","city","dob","about","why","theme","idea","experience","portfolio","expect","days","laptop","notes"
+"241cdd1e-3562-4940-82b6-b2bc6b6d5d10","2026-07-08T23:14:12.884Z","new","aaaaaa","aaaaa@aaa.com","aaaaaaaa","aaaaaaa","2026-07-16","aaaaaaa","aaaaaaaa","aaaaaaaaa","aaaaa","3D տպագրություն; 3D մոդելավորում","aaaaaaaa","aaaaaaaaaa","Այո","Ոչ, անհրաժեշտ է, որ տրամադրվի աշխատարանի ընթացքում։",""
+"77ee6c04-715f-4b92-873f-a6486dc3dfcc","2026-07-08T23:12:14.770Z","declined","TEST — deploy probe","probe@di-studio.xyz","","Gyumri","","","verifying stage-2 deploy","","","","","","","","deploy verification probe — ignore"
